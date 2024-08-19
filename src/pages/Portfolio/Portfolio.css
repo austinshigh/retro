@@ -1,0 +1,18 @@
+.portfolio-container--outer {
+  margin-top: 50px;
+}
+
+.portfolio-container--cards {
+  display: flex;
+  flex-direction: row;
+  gap: 30px;
+  margin: 0px 30px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* @media (max-width: 940px) {
+  .portfolio-container--cards {
+    flex-direction: column;
+  }
+} */

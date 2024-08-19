@@ -1,0 +1,7 @@
+.card-hover-state {
+  cursor: pointer;
+}
+
+.card-hover-state:hover {
+  background-color: #3333;
+}
