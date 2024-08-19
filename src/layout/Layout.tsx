@@ -1,16 +1,16 @@
 import React from "react"
 import { Outlet } from "react-router-dom"
 import styled from "styled-components"
-import Navigation from "../components/navigation/Navigation"
-import SocialIcons from "../components/SocialIcons"
 import RetroNav from "../components/RetroNav"
+import Folder from "../components/desktop/Folder"
 
 const Layout = () => {
   return (
     <LayoutContainer>
       {/* <Navigation /> */}
       <RetroNav />
-      <SocialIcons />
+      <Folder title="Resume" />
+      {/* <SocialIcons /> */}
       <Outlet />
     </LayoutContainer>
   )

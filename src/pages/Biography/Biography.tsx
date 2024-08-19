@@ -7,7 +7,7 @@ const Biography = () => {
   return (
     <div>
       <div className="flex-container">{/* <img src={portrait} /> */}</div>
-      <Resume />
+      {/* <Resume /> */}
     </div>
   )
 }
