@@ -1,18 +1,48 @@
-import React, { useState } from "react"
-import EightBitLogo from "../../images/8bitlogo.png"
+import React, { useEffect, useState } from "react"
 import styled from "styled-components"
 import DropDown from "./FileDropDown"
 import FileDropDown from "./FileDropDown"
 import EditDropDown from "./EditDropDown"
+import LogoDropDown from "./LogoDropDown"
+import ViewDropDown from "./ViewDropDown"
+import Clock from "./Clock"
+
+export interface DropDownProps {
+  requestToOpenNav: boolean
+  setRequestToOpenNav: any
+}
 
 const RetroNav = () => {
+  const [requestToOpenNav, setRequestToOpenNav] = useState(false)
+
+  useEffect(() => {
+    if (requestToOpenNav) {
+      setRequestToOpenNav(false)
+    }
+  }, [requestToOpenNav])
+
   return (
     <StyledNav>
-      <Logo src={EightBitLogo} />
-      <FileDropDown></FileDropDown>
-      <EditDropDown></EditDropDown>
+      {/* Add shutdown feature */}
+      <LogoDropDown
+        requestToOpenNav={requestToOpenNav}
+        setRequestToOpenNav={setRequestToOpenNav}
+      />
+      <FileDropDown
+        requestToOpenNav={requestToOpenNav}
+        setRequestToOpenNav={setRequestToOpenNav}
+      />
+      <EditDropDown
+        requestToOpenNav={requestToOpenNav}
+        setRequestToOpenNav={setRequestToOpenNav}
+      />
+      <ViewDropDown
+        requestToOpenNav={requestToOpenNav}
+        setRequestToOpenNav={setRequestToOpenNav}
+      />
       {/* <DropDown title={"View"}></DropDown>
       <DropDown title={"Special"}></DropDown> */}
+      <Clock />
     </StyledNav>
   )
 }
@@ -29,11 +59,7 @@ const StyledNav = styled.div`
   font-weight: 400;
   letter-spacing: 1px;
   font-size: 18px;
-`
-
-const Logo = styled.img`
-  height: 22px;
-  padding-left: 10px;
+  align-items: center;
 `
 
 export default RetroNav

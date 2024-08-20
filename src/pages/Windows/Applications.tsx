@@ -1,8 +1,8 @@
 import React from "react"
 import Folder from "../../components/desktop/Folder"
-import solidity from "../../images/solidity.png"
-import react from "../../images/react.png"
-import java from "../../images/java.png"
+import solidity from "../../images/Solidity8Bit.png"
+import react from "../../images/ReactLogo8Bit.png"
+import java from "../../images/Java8Bit.png"
 import { WindowContainer } from "./Photos"
 
 const Applications = () => {

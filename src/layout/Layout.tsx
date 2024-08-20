@@ -14,21 +14,6 @@ const Layout = () => {
     <LayoutContainer>
       {/* <Navigation /> */}
       <RetroNav />
-      <DesktopContainer>
-        <Folder title="Resume">
-          <Resume />
-        </Folder>
-        <Folder title="Applications">
-          <Applications />
-        </Folder>
-        <Folder title="Hangman">
-          <IFrame />
-        </Folder>
-        <Folder title="Carpentry">
-          <Photos />
-        </Folder>
-        {/* <Folder title="Trash" src={Trashcan}></Folder> */}
-      </DesktopContainer>
       <Outlet />
     </LayoutContainer>
   )
@@ -44,15 +29,6 @@ const LayoutContainer = styled.div`
   background-color: #f8eded;
   font-weight: 400;
   font-style: normal;
-`
-
-const DesktopContainer = styled.div`
-  display: flex;
-  padding: 50px;
-  flex-direction: column;
-  align-items: flex-end;
-  flex-wrap: wrap;
-  gap: 10px;
 `
 
 export default Layout

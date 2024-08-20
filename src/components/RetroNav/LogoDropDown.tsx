@@ -1,9 +1,11 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import styled from "styled-components"
 import "./DropDown.css"
+import ExpandedDropdown from "./DropDownItem"
+import EightBitLogo from "../../images/8bitlogo.png"
 import DropDownItem from "./DropDownItem"
-import useNavBar from "../../hooks/useNavBar"
 import { DropDownProps } from "./RetroNav"
+import useNavBar from "../../hooks/useNavBar"
 
 const DropDown = ({ requestToOpenNav, setRequestToOpenNav }: DropDownProps) => {
   const { handleToggleDropDown, dropDownExpanded } = useNavBar(
@@ -11,14 +13,18 @@ const DropDown = ({ requestToOpenNav, setRequestToOpenNav }: DropDownProps) => {
     setRequestToOpenNav,
   )
 
-  const handleClickPrint = () => {}
+  const handleClickPowerOff = () => {
+    console.log("trigger power off animation")
+  }
 
   return (
     <>
-      <DropDownTitle onClick={() => handleToggleDropDown()}>File</DropDownTitle>
+      <DropDownTitle onClick={() => handleToggleDropDown()}>
+        <Logo src={EightBitLogo} />
+      </DropDownTitle>
       {dropDownExpanded && (
         <ExpandedDropDown>
-          <DropDownItem title={"Print"} handleClick={handleClickPrint} />
+          <DropDownItem title={"Power Off"} handleClick={handleClickPowerOff} />
         </ExpandedDropDown>
       )}
     </>
@@ -31,13 +37,22 @@ const DropDownTitle = styled.div`
     filter: invert(1);
     cursor: pointer;
   }
+  display: flex;
+  align-items: center;
+  margin-left: 10px;
 `
 
-export const ExpandedDropDown = styled.div`
+const ExpandedDropDown = styled.div`
   position: absolute;
   top: 25px;
-  left: 45px;
+  left: 10px;
   width: 100px;
   background-color: lightgray;
 `
+
+const Logo = styled.img`
+  height: 25px;
+  filter: grayscale(100%) invert(1);
+`
+
 export default DropDown

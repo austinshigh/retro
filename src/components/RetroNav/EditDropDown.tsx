@@ -3,25 +3,19 @@ import styled from "styled-components"
 import "./DropDown.css"
 import DropDownItem from "./DropDownItem"
 import { ExpandedDropDown } from "./FileDropDown"
+import useNavBar from "../../hooks/useNavBar"
+import { DropDownProps } from "./RetroNav"
 
-interface Props {
-  src?: string
-}
-
-const DropDown = ({ src }: Props) => {
-  const [dropDownExpanded, setDropDownExpanded] = useState(false)
-
+const DropDown = ({ requestToOpenNav, setRequestToOpenNav }: DropDownProps) => {
+  const { handleToggleDropDown, dropDownExpanded } = useNavBar(
+    requestToOpenNav,
+    setRequestToOpenNav,
+  )
   const handleClickNewFolder = () => {}
 
   return (
     <>
-      <DropDownTitle
-        className={dropDownExpanded ? "expanded" : "collapsed"}
-        onClick={() => setDropDownExpanded(!dropDownExpanded)}
-        onBlur={() => setDropDownExpanded(false)}
-      >
-        Edit
-      </DropDownTitle>
+      <DropDownTitle onClick={() => handleToggleDropDown()}>Edit</DropDownTitle>
       {dropDownExpanded && (
         <StyledExpandedDropDown>
           <DropDownItem
