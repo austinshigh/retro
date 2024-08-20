@@ -17,38 +17,14 @@ interface Props {
 const Photo = ({ title, initLeft, initTop, src = PhotoIcon }: Props) => {
   const [top, setTop] = useState(initTop)
   const [left, setLeft] = useState(initLeft)
-  const windowRef = useRef<HTMLDivElement>(null)
   const [customTitle, setCustomTitle] = useState(title)
   const [editTitle, setEditTitle] = useState(false)
   const [windowOpen, setWindowOpen] = useState(false)
 
-  const [windowTop, setWindowTop] = useState(100)
-  const [windowLeft, setWindowLeft] = useState(100)
+  const [dragging, setDragging] = useState(false)
 
   function handleWindowOpen() {
     setWindowOpen(true)
-  }
-
-  const longPressOpenWindow = useLongPress(() => {
-    handleWindowOpen()
-  })
-
-  const longPressToggleInput = useLongPress(() => {
-    toggleInput()
-  })
-
-  const onWindowDragStart = (ev: React.DragEvent<HTMLElement>) => {
-    setDragImage(ev)
-  }
-
-  function onWindowDrag(ev: React.DragEvent<HTMLElement>) {
-    let x = ev.clientX // get mouse x and adjust for el.
-    let y = ev.clientY // get mouse y and adjust for el.
-
-    if (x !== 0 && y !== 0) {
-      setWindowLeft(x)
-      setWindowTop(y)
-    }
   }
 
   const onFolderDragStart = (ev: React.DragEvent<HTMLElement>) => {
@@ -76,11 +52,38 @@ const Photo = ({ title, initLeft, initTop, src = PhotoIcon }: Props) => {
     setEditTitle(!editTitle)
   }
 
+  //   Mobile Event Handlers
+  const longPressOpenWindow = useLongPress(() => {
+    if (!dragging) {
+      handleWindowOpen()
+    }
+  })
+
+  const longPressToggleInput = useLongPress(() => {
+    if (!dragging) {
+      toggleInput()
+    }
+  })
+
+  const onMobileDrag = (e: React.TouchEvent<HTMLElement>) => {
+    setDragging(true)
+    let touchLocation = e.targetTouches[0]
+    let x = touchLocation.pageX
+    let y = touchLocation.pageY
+
+    if (x !== 0 && y !== 0) {
+      setLeft(x)
+      setTop(y)
+    }
+  }
+
   return (
     <>
       <DraggableContainer
         top={top}
         left={left}
+        onTouchMove={e => onMobileDrag(e)}
+        onTouchEnd={() => setDragging(false)}
         onDragStart={e => onFolderDragStart(e)}
         onDragCapture={e => onFolderDrag(e)}
         onDragEnd={e => onFolderDrag(e)}
@@ -118,11 +121,6 @@ const Photo = ({ title, initLeft, initTop, src = PhotoIcon }: Props) => {
       )}
     </>
   )
-}
-
-interface PositionProps {
-  top?: number
-  left?: number
 }
 
 const EnlargedPhoto = styled.img`

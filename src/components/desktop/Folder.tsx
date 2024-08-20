@@ -30,14 +30,7 @@ const Folder = ({
   const [customTitle, setCustomTitle] = useState(title)
   const [editTitle, setEditTitle] = useState(false)
   const [windowOpen, setWindowOpen] = useState(false)
-
-  const longPressOpenWindow = useLongPress(() => {
-    handleWindowOpen()
-  })
-
-  const longPressToggleInput = useLongPress(() => {
-    toggleInput()
-  })
+  const [dragging, setDragging] = useState(false)
 
   function handleWindowOpen() {
     if (href) {
@@ -109,7 +102,25 @@ const Folder = ({
     }
   }
 
+  function toggleInput() {
+    setEditTitle(!editTitle)
+  }
+
+  //   Mobile Event Handlers
+  const longPressOpenWindow = useLongPress(() => {
+    if (!dragging) {
+      handleWindowOpen()
+    }
+  })
+
+  const longPressToggleInput = useLongPress(() => {
+    if (!dragging) {
+      toggleInput()
+    }
+  })
+
   const onMobileDrag = (e: React.TouchEvent<HTMLElement>) => {
+    setDragging(true)
     let touchLocation = e.targetTouches[0]
     let x = touchLocation.pageX
     let y = touchLocation.pageY
@@ -120,18 +131,13 @@ const Folder = ({
     }
   }
 
-  //   const onMobileDragEnd = (e: any) => {}
-
-  function toggleInput() {
-    setEditTitle(!editTitle)
-  }
-
   return (
     <>
       <DraggableContainer
         top={top}
         left={left}
         onTouchMove={e => onMobileDrag(e)}
+        onTouchEnd={() => setDragging(false)}
         onDragStart={e => onFolderDragStart(e)}
         onDragCapture={e => onFolderDrag(e)}
         onDragEnd={e => onFolderDrag(e)}
