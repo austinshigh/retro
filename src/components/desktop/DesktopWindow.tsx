@@ -33,7 +33,7 @@ const DesktopWindow = ({ handleCloseWindow, title, children }: Props) => {
         onDragCapture={e => onWindowDrag(e)}
         onDragEnd={e => onWindowDrag(e)}
       >
-        <div>{title}</div>
+        <Title>{title}</Title>
         <CloseButton onClick={() => handleCloseWindow()}>X</CloseButton>
       </TopBar>
       {children}
@@ -57,31 +57,61 @@ const WindowContainer = styled.div<PositionProps>`
   left: ${props => props.left}px;
   background-color: #f8eded;
   z-index: 1000;
+  /* width */
+  &::-webkit-scrollbar {
+    width: 20px;
+  }
+
+  /* Track */
+  &::-webkit-scrollbar-track {
+    background: lightgray;
+  }
+
+  /* Handle */
+  &::-webkit-scrollbar-thumb {
+    background: #888;
+  }
+
+  /* Handle on hover */
+  &::-webkit-scrollbar-thumb:hover {
+    background: #000000;
+  }
+  &::-webkit-resizer {
+    display: none;
+    background-color: #555;
+  }
 `
 
 const TopBar = styled.div`
   position: sticky;
   top: 0px;
   width: 100%;
-  height: 20px;
-  border: 1px solid black;
+  height: 22px;
+  /* border-bottom: 1px solid black; */
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #f8eded;
+  background: lightgray;
+`
+
+const Title = styled.div`
+  font-family: "VT323", monospace;
+  font-size: 20px;
 `
 
 const CloseButton = styled.div`
-  line-height: 18px;
+  line-height: 20px;
   position: absolute;
   top: 0px;
-  right: 0px;
-  height: 18px;
+  left: 3px;
+  height: 22px;
   width: 20px;
-  border: 1px solid black;
+  /* border-right: 1px solid black; */
   text-align: center;
+  font-family: "VT323", monospace;
+  font-size: 25px;
+  transform: scale(1.5, 1);
   &:hover {
-    border: 1px solid black;
     background-color: white;
     filter: invert(1);
   }

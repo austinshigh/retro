@@ -126,6 +126,7 @@ const Folder = ({
             onBlur={() => toggleInput()}
             onChange={(e: any) => setCustomTitle(e.target.value)}
             placeholder={customTitle}
+            maxLength={13}
           />
         ) : (
           <Title onDoubleClick={() => toggleInput()}>{customTitle}</Title>
@@ -154,7 +155,7 @@ export const DraggableContainer = styled.div<PositionProps>`
   left: ${props => (props.left ? props.left : 0)}px;
   padding: 5px;
   display: flex;
-  width: 75px;
+  max-width: 120px;
   flex-direction: column;
   align-items: center;
   filter: grayscale(100%);

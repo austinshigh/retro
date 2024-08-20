@@ -34,9 +34,10 @@ const DesktopContainer = styled.div`
   display: flex;
   padding: 50px;
   flex-direction: column;
-  align-items: flex-end;
   flex-wrap: wrap;
   gap: 10px;
+  align-items: center;
+  align-content: flex-end;
 `
 
 export default Biography
