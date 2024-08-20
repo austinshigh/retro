@@ -1,20 +1,33 @@
 import React, { useEffect, useState } from "react"
 import styled from "styled-components"
 import "./DropDown.css"
-import ExpandedDropdown from "./DropDownItem"
-import EightBitLogo from "../../images/8bitlogo.png"
+import EightBitLogo from "../../images/8BitLogo.png"
 import DropDownItem from "./DropDownItem"
 import { DropDownProps } from "./RetroNav"
 import useNavBar from "../../hooks/useNavBar"
 
-const DropDown = ({ requestToOpenNav, setRequestToOpenNav }: DropDownProps) => {
+interface LogoDropDownProps {
+  requestToOpenNav: boolean
+  setRequestToOpenNav: any
+  handleReset: any
+  handleShutDown: any
+  handleLogout: any
+}
+
+const DropDown = ({
+  requestToOpenNav,
+  setRequestToOpenNav,
+  handleShutDown,
+  handleReset,
+  handleLogout,
+}: LogoDropDownProps) => {
   const { handleToggleDropDown, dropDownExpanded } = useNavBar(
     requestToOpenNav,
     setRequestToOpenNav,
   )
 
   const handleClickPowerOff = () => {
-    console.log("trigger power off animation")
+    handleShutDown()
   }
 
   return (
@@ -24,6 +37,8 @@ const DropDown = ({ requestToOpenNav, setRequestToOpenNav }: DropDownProps) => {
       </DropDownTitle>
       {dropDownExpanded && (
         <ExpandedDropDown>
+          <DropDownItem title={"Log Out"} handleClick={handleLogout} />
+          <DropDownItem title={"Reset"} handleClick={handleReset} />
           <DropDownItem title={"Power Off"} handleClick={handleClickPowerOff} />
         </ExpandedDropDown>
       )}

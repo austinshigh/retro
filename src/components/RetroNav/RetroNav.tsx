@@ -12,7 +12,13 @@ export interface DropDownProps {
   setRequestToOpenNav: any
 }
 
-const RetroNav = () => {
+interface Props {
+  handleShutDown: any
+  handleReset: any
+  handleLogout: any
+}
+
+const RetroNav = ({ handleShutDown, handleReset, handleLogout }: Props) => {
   const [requestToOpenNav, setRequestToOpenNav] = useState(false)
 
   useEffect(() => {
@@ -27,6 +33,9 @@ const RetroNav = () => {
       <LogoDropDown
         requestToOpenNav={requestToOpenNav}
         setRequestToOpenNav={setRequestToOpenNav}
+        handleShutDown={handleShutDown}
+        handleReset={handleReset}
+        handleLogout={handleLogout}
       />
       <FileDropDown
         requestToOpenNav={requestToOpenNav}

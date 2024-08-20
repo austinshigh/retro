@@ -1,23 +1,58 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import { Outlet } from "react-router-dom"
 import styled from "styled-components"
 import RetroNav from "../components/RetroNav/RetroNav"
-import Folder from "../components/desktop/Folder"
-import Resume from "../components/Resume"
-import Applications from "../pages/Windows/Applications"
-import IFrame from "../pages/Hangman/IFrame/IFrame"
-import Photos from "../pages/Windows/Photos"
-import Trashcan from "../images/Trashcan.png"
+import LoginPage from "../pages/LoginPage"
 
 const Layout = () => {
+  const [powerOff, setPowerOff] = useState(false)
+  const [reset, setReset] = useState(false)
+  const [loggedIn, setLoggedIn] = useState(true)
+
+  useEffect(() => {
+    if (reset) {
+      setTimeout(
+        function () {
+          setReset(false)
+        },
+        1 * 1 * 1000,
+      )
+    }
+  }, [reset])
+
   return (
-    <LayoutContainer>
-      {/* <Navigation /> */}
-      <RetroNav />
-      <Outlet />
-    </LayoutContainer>
+    <>
+      {powerOff || reset ? (
+        <ShutDown />
+      ) : (
+        <>
+          {loggedIn ? (
+            <LayoutContainer>
+              {/* <Navigation /> */}
+              <RetroNav
+                handleShutDown={() => setPowerOff(true)}
+                handleReset={() => setReset(true)}
+                handleLogout={() => setLoggedIn(false)}
+              />
+              <Outlet />
+            </LayoutContainer>
+          ) : (
+            <LoginContainer>
+              <LoginPage />
+            </LoginContainer>
+          )}
+        </>
+      )}
+    </>
   )
 }
+
+const ShutDown = styled.div`
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  background-color: black;
+`
 
 const LayoutContainer = styled.div`
   width: 100%;
@@ -30,5 +65,7 @@ const LayoutContainer = styled.div`
   font-weight: 400;
   font-style: normal;
 `
+
+const LoginContainer = styled.div``
 
 export default Layout
