@@ -6,11 +6,13 @@ import FolderIcon from "../../images/FolderIcon.png"
 
 interface Props {
   title?: string
+  initLeft?: number
+  initTop?: number
 }
 
-const Folder = ({ title }: Props) => {
-  const [top, setTop] = useState(0)
-  const [left, setLeft] = useState(0)
+const Folder = ({ title, initLeft, initTop }: Props) => {
+  const [top, setTop] = useState(initTop)
+  const [left, setLeft] = useState(initLeft)
   const iconRef = useRef<HTMLImageElement>(null)
   const [customTitle, setCustomTitle] = useState("")
   const [editTitle, setEditTitle] = useState(false)

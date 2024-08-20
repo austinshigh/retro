@@ -10,6 +10,8 @@ const Layout = () => {
       {/* <Navigation /> */}
       <RetroNav />
       <Folder title="Resume" />
+      <Folder title="Applications" initLeft={0} initTop={150} />
+      <Folder title="Hangman" initLeft={0} initTop={250} />
       {/* <SocialIcons /> */}
       <Outlet />
     </LayoutContainer>
