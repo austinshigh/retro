@@ -3,9 +3,11 @@ import React, { ReactNode } from "react"
 import { useRef, useState } from "react"
 import styled from "styled-components"
 import FolderIcon from "../../images/FolderIcon.png"
+import { setDragImage } from "../../utils/DragUtility"
+import DesktopWindow from "./DesktopWindow"
 
 interface Props {
-  title?: string
+  title: string
   initLeft?: number
   initTop?: number
   src?: string
@@ -23,14 +25,10 @@ const Folder = ({
 }: Props) => {
   const [top, setTop] = useState(initTop)
   const [left, setLeft] = useState(initLeft)
-  const windowRef = useRef<HTMLDivElement>(null)
   const iconRef = useRef<HTMLImageElement>(null)
   const [customTitle, setCustomTitle] = useState(title)
   const [editTitle, setEditTitle] = useState(false)
   const [windowOpen, setWindowOpen] = useState(false)
-
-  const [windowTop, setWindowTop] = useState(100)
-  const [windowLeft, setWindowLeft] = useState(100)
 
   function handleWindowOpen() {
     if (href) {
@@ -38,31 +36,8 @@ const Folder = ({
     } else setWindowOpen(true)
   }
 
-  const onWindowDragStart = (ev: React.DragEvent<HTMLElement>) => {
-    setDragImage(ev)
-  }
-
-  function onWindowDrag(ev: React.DragEvent<HTMLElement>) {
-    let x = ev.clientX // get mouse x
-    let y = ev.clientY // get mouse y
-
-    if (x !== 0 && y !== 0) {
-      setWindowLeft(x)
-      setWindowTop(y)
-    }
-  }
-
   const onFolderDragStart = (ev: React.DragEvent<HTMLElement>) => {
     setDragImage(ev)
-  }
-
-  const setDragImage = (ev: React.DragEvent<HTMLElement>) => {
-    let img = document.createElement("img")
-    // img.src =
-    //   "https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png"
-    img.src = "https://i.ibb.co/48MwZNN/Single-Pixel.png"
-    document.body.appendChild(img)
-    ev.dataTransfer.setDragImage(img, 0, 0)
   }
 
   const onFolderDrag = (ev: React.DragEvent<HTMLElement>) => {
@@ -108,16 +83,16 @@ const Folder = ({
 
     // TODO: need to pass a window ref to the child, so that a folder contained within a window knows the spacing of its
 
-    if (windowRef.current) {
-      let rect = windowRef.current.getBoundingClientRect()
-      console.log(rect.top, rect.right, rect.bottom, rect.left)
+    // if (windowRef.current) {
+    //   let rect = windowRef.current.getBoundingClientRect()
+    //   console.log(rect.top, rect.right, rect.bottom, rect.left)
 
-      x = ev.clientX - rect.left // get mouse x and adjust for el.
-      y = ev.clientY - rect.top // get mouse y and adjust for el.
-    } else {
-      x = ev.clientX // get mouse x and adjust for el.
-      y = ev.clientY // get mouse y and adjust for el.
-    }
+    //   x = ev.clientX - rect.left // get mouse x and adjust for el.
+    //   y = ev.clientY - rect.top // get mouse y and adjust for el.
+    // } else {
+    x = ev.clientX // get mouse x and adjust for el.
+    y = ev.clientY // get mouse y and adjust for el.
+    // }
 
     if (x !== 0 && y !== 0) {
       setLeft(x)
@@ -157,18 +132,12 @@ const Folder = ({
         )}
       </DraggableContainer>
       {windowOpen && (
-        <WindowContainer left={windowLeft} top={windowTop} ref={windowRef}>
-          <TopBar
-            draggable={true}
-            onDragStart={e => onWindowDragStart(e)}
-            onDragCapture={e => onWindowDrag(e)}
-            onDragEnd={e => onWindowDrag(e)}
-          >
-            <div>{customTitle}</div>
-            <CloseButton onClick={() => setWindowOpen(false)}>X</CloseButton>
-          </TopBar>
-          <InnerWindowContainer>{children}</InnerWindowContainer>
-        </WindowContainer>
+        <DesktopWindow
+          title={customTitle}
+          handleCloseWindow={() => setWindowOpen(false)}
+        >
+          {children}
+        </DesktopWindow>
       )}
     </>
   )
@@ -178,49 +147,6 @@ interface PositionProps {
   top?: number
   left?: number
 }
-
-const WindowContainer = styled.div<PositionProps>`
-  position: fixed;
-  width: 400px;
-  height: 400px;
-  resize: both;
-  overflow: auto;
-  border: 1px solid black;
-  top: ${props => props.top}px;
-  left: ${props => props.left}px;
-  background-color: #f8eded;
-  z-index: 1000;
-`
-
-const InnerWindowContainer = styled.div``
-
-export const CloseButton = styled.div`
-  line-height: 18px;
-  position: absolute;
-  top: 0px;
-  right: 0px;
-  height: 18px;
-  width: 20px;
-  border: 1px solid black;
-  text-align: center;
-  &:hover {
-    border: 1px solid black;
-    background-color: white;
-    filter: invert(1);
-  }
-`
-
-export const TopBar = styled.div`
-  position: sticky;
-  top: 0px;
-  width: 100%;
-  height: 20px;
-  border: 1px solid black;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #f8eded;
-`
 
 export const DraggableContainer = styled.div<PositionProps>`
   position: ${props => (props.top || props.left ? "absolute" : "relative")};

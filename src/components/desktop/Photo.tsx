@@ -3,17 +3,11 @@ import React, { ReactNode } from "react"
 import { useRef, useState } from "react"
 import styled from "styled-components"
 import PhotoIcon from "../../images/FolderIcon.png"
-import {
-  CloseButton,
-  DraggableContainer,
-  DraggableImage,
-  Input,
-  Title,
-  TopBar,
-} from "./Folder"
+import { DraggableContainer, DraggableImage, Input, Title } from "./Folder"
+import DesktopWindow from "./DesktopWindow"
 
 interface Props {
-  title?: string
+  title: string
   initLeft?: number
   initTop?: number
   src?: string
@@ -100,18 +94,12 @@ const Photo = ({ title, initLeft, initTop, src = PhotoIcon }: Props) => {
         )}
       </DraggableContainer>
       {windowOpen && (
-        <WindowContainer left={windowLeft} top={windowTop} ref={windowRef}>
-          <TopBar
-            draggable={true}
-            onDragStart={e => onWindowDragStart(e)}
-            onDragCapture={e => onWindowDrag(e)}
-            onDragEnd={e => onWindowDrag(e)}
-          >
-            <div>{customTitle}</div>
-            <CloseButton onClick={() => setWindowOpen(false)}>X</CloseButton>
-          </TopBar>
+        <DesktopWindow
+          title={customTitle}
+          handleCloseWindow={() => setWindowOpen(false)}
+        >
           <EnlargedPhoto src={src} />
-        </WindowContainer>
+        </DesktopWindow>
       )}
     </>
   )
