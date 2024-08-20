@@ -1,16 +1,18 @@
 import React, { useState } from "react"
 import EightBitLogo from "../../images/8bitlogo.png"
 import styled from "styled-components"
-import DropDown from "./Dropdown"
+import DropDown from "./FileDropDown"
+import FileDropDown from "./FileDropDown"
+import EditDropDown from "./EditDropDown"
 
 const RetroNav = () => {
   return (
     <StyledNav>
       <Logo src={EightBitLogo} />
-      <DropDown title={"File"}></DropDown>
-      <DropDown title={"Edit"}></DropDown>
-      <DropDown title={"View"}></DropDown>
-      <DropDown title={"Special"}></DropDown>
+      <FileDropDown></FileDropDown>
+      <EditDropDown></EditDropDown>
+      {/* <DropDown title={"View"}></DropDown>
+      <DropDown title={"Special"}></DropDown> */}
     </StyledNav>
   )
 }

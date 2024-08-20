@@ -1,23 +1,32 @@
 import React, { useState } from "react"
 import styled from "styled-components"
+import "./DropDown.css"
+import ExpandedDropdown from "./DropDownItem"
+import DropDownItem from "./DropDownItem"
 
 interface Props {
-  title?: string
   src?: string
 }
 
-const DropDown = ({ title, src }: Props) => {
+const DropDown = ({ src }: Props) => {
   const [dropDownExpanded, setDropDownExpanded] = useState(false)
+
+  const handleClickPrint = () => {}
 
   return (
     <>
       <DropDownTitle
+        className={dropDownExpanded ? "expanded" : "collapsed"}
         onClick={() => setDropDownExpanded(!dropDownExpanded)}
         onBlur={() => setDropDownExpanded(false)}
       >
-        {title}
+        File
       </DropDownTitle>
-      {dropDownExpanded && <Expanded></Expanded>}
+      {dropDownExpanded && (
+        <ExpandedDropDown>
+          <DropDownItem title={"Print"} handleClick={handleClickPrint} />
+        </ExpandedDropDown>
+      )}
     </>
   )
 }
@@ -30,13 +39,11 @@ const DropDownTitle = styled.div`
   }
 `
 
-const Expanded = styled.div`
+export const ExpandedDropDown = styled.div`
   position: absolute;
   top: 25px;
-  left: 35px;
+  left: 40px;
   width: 100px;
-  height: 200px;
   background-color: lightgray;
 `
-
 export default DropDown
