@@ -12,6 +12,8 @@ const Folder = ({ title }: Props) => {
   const [top, setTop] = useState(0)
   const [left, setLeft] = useState(0)
   const iconRef = useRef<HTMLImageElement>(null)
+  const [customTitle, setCustomTitle] = useState("")
+  const [editTitle, setEditTitle] = useState(false)
 
   function onDragStartHandler(ev: React.DragEvent<HTMLElement>) {
     // if (iconRef.current) {
@@ -29,6 +31,11 @@ const Folder = ({ title }: Props) => {
     // setLeft(x)
     // setTop(y)
 
+    var dragIcon = document.createElement("img")
+    dragIcon.src = "blank.png"
+    dragIcon.width = 100
+    ev.dataTransfer.setDragImage(dragIcon, -10, -10)
+
     let x = ev.clientX // get mouse x and adjust for el.
     let y = ev.clientY // get mouse y and adjust for el.
 
@@ -40,11 +47,8 @@ const Folder = ({ title }: Props) => {
     }
   }
 
-  function removeDragImage(ev: React.DragEvent<HTMLImageElement>) {
-    var dragIcon = document.createElement("img")
-    dragIcon.src = "blank.png"
-    dragIcon.width = 100
-    ev.dataTransfer.setDragImage(dragIcon, -10, -10)
+  function toggleInput() {
+    setEditTitle(!editTitle)
   }
 
   return (
@@ -53,14 +57,21 @@ const Folder = ({ title }: Props) => {
       left={left}
       onDragCapture={e => onDragStartHandler(e)}
       onDragEnd={e => onDragStartHandler(e)}
+      draggable={true}
+      tabIndex={0}
     >
-      <FolderImage
-        src={FolderIcon}
-        ref={iconRef}
-        alt=""
-        onDragCapture={e => removeDragImage(e)}
-      />
-      <Title>{title}</Title>
+      <FolderImage src={FolderIcon} ref={iconRef} alt="" />
+      {editTitle ? (
+        <Input
+          onBlur={() => toggleInput()}
+          onChange={(e: any) => setCustomTitle(e.target.value)}
+          placeholder={customTitle ? customTitle : title}
+        />
+      ) : (
+        <Title onDoubleClick={() => toggleInput()}>
+          {customTitle ? customTitle : title}
+        </Title>
+      )}
     </FolderContainer>
   )
 }
@@ -74,14 +85,42 @@ const FolderContainer = styled.div<PositionProps>`
   position: fixed;
   top: ${props => (props.top ? props.top : 50)}px;
   left: ${props => (props.left ? props.left : 50)}px;
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  &:focus {
+    border: 1px solid black;
+    background-color: white;
+    filter: invert(1);
+  }
+  &:focus-visible {
+    border: 1px solid black;
+    background-color: white;
+    filter: invert(1);
+  }
 `
 
 const FolderImage = styled.img`
   height: 50px;
+  width: 50px;
 `
 
 const Title = styled.div`
-  font-size: 15px;
+  font-family: "VT323", monospace;
+  font-weight: 400;
+  letter-spacing: 1px;
+  font-size: 18px;
+  max-width: 50px;
+`
+
+const Input = styled.input`
+  font-family: "VT323", monospace;
+  font-weight: 400;
+  letter-spacing: 1px;
+  font-size: 18px;
+  background: transparent;
+  border: none;
+  outline: none;
 `
 
 export default Folder

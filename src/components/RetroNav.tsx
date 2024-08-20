@@ -22,6 +22,10 @@ const StyledNav = styled.div`
   height: 25px;
   /* padding: 3px; */
   background-color: lightgray;
+  font-family: "VT323", monospace;
+  font-weight: 400;
+  letter-spacing: 1px;
+  font-size: 18px;
 `
 
 const Logo = styled.img`
