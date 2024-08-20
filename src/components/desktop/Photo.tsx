@@ -3,7 +3,14 @@ import React, { ReactNode } from "react"
 import { useRef, useState } from "react"
 import styled from "styled-components"
 import PhotoIcon from "../../images/FolderIcon.png"
-import { DraggableContainer } from "./Folder"
+import {
+  CloseButton,
+  DraggableContainer,
+  DraggableImage,
+  Input,
+  Title,
+  TopBar,
+} from "./Folder"
 
 interface Props {
   title?: string
@@ -12,7 +19,7 @@ interface Props {
   src?: string
 }
 
-const Photo = ({ title, initLeft, initTop, src }: Props) => {
+const Photo = ({ title, initLeft, initTop, src = PhotoIcon }: Props) => {
   const [top, setTop] = useState(initTop)
   const [left, setLeft] = useState(initLeft)
   const windowRef = useRef<HTMLDivElement>(null)
@@ -77,8 +84,8 @@ const Photo = ({ title, initLeft, initTop, src }: Props) => {
         draggable={true}
         tabIndex={0}
       >
-        <FolderImage
-          src={src ? src : PhotoIcon}
+        <DraggableImage
+          src={src}
           alt=""
           onDoubleClick={() => handleWindowOpen()}
         />
@@ -130,64 +137,6 @@ const EnlargedPhoto = styled.img`
   min-width: 200px;
   max-width: 50vw;
   max-height: 50vh;
-`
-
-const CloseButton = styled.div`
-  line-height: 18px;
-  position: absolute;
-  top: 0px;
-  right: 0px;
-  height: 18px;
-  width: 20px;
-  border: 1px solid black;
-  text-align: center;
-  &:hover {
-    border: 1px solid black;
-    background-color: white;
-    filter: invert(1);
-  }
-`
-
-const TopBar = styled.div`
-  position: sticky;
-  top: 0px;
-  width: 100%;
-  height: 20px;
-  border: 1px solid black;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #f8eded;
-`
-
-const FolderImage = styled.img`
-  height: 50px;
-  width: 50px;
-  -webkit-touch-callout: none !important;
-  -webkit-user-select: none !important;
-  -webkit-user-drag: none !important;
-  -khtml-user-select: none !important;
-  -moz-user-select: none !important;
-  -ms-user-select: none !important;
-  user-select: none !important;
-`
-
-const Title = styled.div`
-  font-family: "VT323", monospace;
-  font-weight: 400;
-  letter-spacing: 1px;
-  font-size: 18px;
-  text-align: center;
-`
-
-const Input = styled.input`
-  font-family: "VT323", monospace;
-  font-weight: 400;
-  letter-spacing: 1px;
-  font-size: 18px;
-  background: transparent;
-  border: none;
-  outline: none;
 `
 
 export default Photo

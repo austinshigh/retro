@@ -104,7 +104,6 @@ const ResumeContainer = styled.div`
   max-width: 800px;
   margin: 0 auto;
   padding: 20px;
-  font-family: Arial, sans-serif;
   @media (max-width: 575px) {
     max-width: 400px;
   }

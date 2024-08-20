@@ -7,6 +7,7 @@ import Resume from "../components/Resume"
 import Applications from "../pages/Windows/Applications"
 import IFrame from "../pages/Hangman/IFrame/IFrame"
 import Photos from "../pages/Windows/Photos"
+import Trashcan from "../images/Trashcan.png"
 
 const Layout = () => {
   return (
@@ -26,6 +27,7 @@ const Layout = () => {
         <Folder title="Carpentry">
           <Photos />
         </Folder>
+        {/* <Folder title="Trash" src={Trashcan}></Folder> */}
       </DesktopContainer>
       <Outlet />
     </LayoutContainer>
@@ -40,7 +42,6 @@ const LayoutContainer = styled.div`
   // flex-direction: column;
   // align-items: center;
   background-color: #f8eded;
-  font-family: "Roboto";
   font-weight: 400;
   font-style: normal;
 `

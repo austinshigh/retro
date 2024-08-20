@@ -13,7 +13,14 @@ interface Props {
   children?: ReactNode
 }
 
-const Folder = ({ title, initLeft, initTop, src, href, children }: Props) => {
+const Folder = ({
+  title,
+  initLeft,
+  initTop,
+  src = FolderIcon,
+  href,
+  children,
+}: Props) => {
   const [top, setTop] = useState(initTop)
   const [left, setLeft] = useState(initLeft)
   const windowRef = useRef<HTMLDivElement>(null)
@@ -26,7 +33,7 @@ const Folder = ({ title, initLeft, initTop, src, href, children }: Props) => {
   const [windowLeft, setWindowLeft] = useState(100)
 
   function handleWindowOpen() {
-    if (src) {
+    if (href) {
       window.open(href, "_blank", "noopener")
     } else setWindowOpen(true)
   }
@@ -36,8 +43,8 @@ const Folder = ({ title, initLeft, initTop, src, href, children }: Props) => {
   }
 
   function onWindowDrag(ev: React.DragEvent<HTMLElement>) {
-    let x = ev.clientX // get mouse x and adjust for el.
-    let y = ev.clientY // get mouse y and adjust for el.
+    let x = ev.clientX // get mouse x
+    let y = ev.clientY // get mouse y
 
     if (x !== 0 && y !== 0) {
       setWindowLeft(x)
@@ -133,8 +140,8 @@ const Folder = ({ title, initLeft, initTop, src, href, children }: Props) => {
         draggable={true}
         tabIndex={0}
       >
-        <FolderImage
-          src={src ? src : FolderIcon}
+        <DraggableImage
+          src={src}
           ref={iconRef}
           alt=""
           onDoubleClick={() => handleWindowOpen()}
@@ -160,7 +167,7 @@ const Folder = ({ title, initLeft, initTop, src, href, children }: Props) => {
             <div>{customTitle}</div>
             <CloseButton onClick={() => setWindowOpen(false)}>X</CloseButton>
           </TopBar>
-          {children}
+          <InnerWindowContainer>{children}</InnerWindowContainer>
         </WindowContainer>
       )}
     </>
@@ -185,7 +192,9 @@ const WindowContainer = styled.div<PositionProps>`
   z-index: 1000;
 `
 
-const CloseButton = styled.div`
+const InnerWindowContainer = styled.div``
+
+export const CloseButton = styled.div`
   line-height: 18px;
   position: absolute;
   top: 0px;
@@ -201,7 +210,7 @@ const CloseButton = styled.div`
   }
 `
 
-const TopBar = styled.div`
+export const TopBar = styled.div`
   position: sticky;
   top: 0px;
   width: 100%;
@@ -235,7 +244,7 @@ export const DraggableContainer = styled.div<PositionProps>`
   }
 `
 
-const FolderImage = styled.img`
+export const DraggableImage = styled.img`
   height: 50px;
   width: 50px;
   -webkit-touch-callout: none !important;
@@ -247,7 +256,7 @@ const FolderImage = styled.img`
   user-select: none !important;
 `
 
-const Title = styled.div`
+export const Title = styled.div`
   font-family: "VT323", monospace;
   font-weight: 400;
   letter-spacing: 1px;
@@ -255,7 +264,7 @@ const Title = styled.div`
   text-align: center;
 `
 
-const Input = styled.input`
+export const Input = styled.input`
   font-family: "VT323", monospace;
   font-weight: 400;
   letter-spacing: 1px;
@@ -263,6 +272,7 @@ const Input = styled.input`
   background: transparent;
   border: none;
   outline: none;
+  text-align: center;
 `
 
 export default Folder
