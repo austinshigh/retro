@@ -21,10 +21,10 @@ const Layout = () => {
 const LayoutContainer = styled.div`
   width: 100%;
   min-height: 100vh;
-  overflow: none;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  //overflow: none;
+  // display: flex;
+  // flex-direction: column;
+  // align-items: center;
   background-color: #f8eded;
   font-family: "Roboto";
   font-weight: 400;
