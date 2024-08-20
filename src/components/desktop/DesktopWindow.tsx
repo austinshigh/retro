@@ -9,11 +9,22 @@ interface Props {
 }
 
 const DesktopWindow = ({ handleCloseWindow, title, children }: Props) => {
-  const [windowTop, setWindowTop] = useState(100)
-  const [windowLeft, setWindowLeft] = useState(100)
+  const [windowTop, setWindowTop] = useState(0)
+  const [windowLeft, setWindowLeft] = useState(0)
 
   const onWindowDragStart = (ev: React.DragEvent<HTMLElement>) => {
     setDragImage(ev)
+  }
+
+  const onMobileDrag = (e: React.TouchEvent<HTMLElement>) => {
+    let touchLocation = e.targetTouches[0]
+    let x = touchLocation.pageX
+    let y = touchLocation.pageY
+
+    if (x !== 0 && y !== 0) {
+      setWindowLeft(x)
+      setWindowTop(y)
+    }
   }
 
   function onWindowDrag(ev: React.DragEvent<HTMLElement>) {
@@ -29,6 +40,7 @@ const DesktopWindow = ({ handleCloseWindow, title, children }: Props) => {
     <WindowContainer left={windowLeft} top={windowTop}>
       <TopBar
         draggable={true}
+        onTouchMove={e => onMobileDrag(e)}
         onDragStart={e => onWindowDragStart(e)}
         onDragCapture={e => onWindowDrag(e)}
         onDragEnd={e => onWindowDrag(e)}
@@ -79,6 +91,12 @@ const WindowContainer = styled.div<PositionProps>`
   &::-webkit-resizer {
     display: none;
     background-color: #555;
+  }
+  @media (max-width: 800px) {
+    top: ${props => (props.top ? props.top : 50)}px;
+    left: ${props => (props.left ? props.left : 0)}px;
+    max-width: 100vw;
+    height: unset;
   }
 `
 

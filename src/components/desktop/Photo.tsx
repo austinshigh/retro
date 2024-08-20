@@ -5,6 +5,7 @@ import styled from "styled-components"
 import PhotoIcon from "../../images/FolderIcon.png"
 import { DraggableContainer, DraggableImage, Input, Title } from "./Folder"
 import DesktopWindow from "./DesktopWindow"
+import { useLongPress } from "use-long-press"
 
 interface Props {
   title: string
@@ -27,6 +28,14 @@ const Photo = ({ title, initLeft, initTop, src = PhotoIcon }: Props) => {
   function handleWindowOpen() {
     setWindowOpen(true)
   }
+
+  const longPressOpenWindow = useLongPress(() => {
+    handleWindowOpen()
+  })
+
+  const longPressToggleInput = useLongPress(() => {
+    toggleInput()
+  })
 
   const onWindowDragStart = (ev: React.DragEvent<HTMLElement>) => {
     setDragImage(ev)
@@ -82,6 +91,7 @@ const Photo = ({ title, initLeft, initTop, src = PhotoIcon }: Props) => {
           src={src}
           alt=""
           onDoubleClick={() => handleWindowOpen()}
+          {...longPressOpenWindow()}
         />
         {editTitle ? (
           <Input
@@ -90,7 +100,12 @@ const Photo = ({ title, initLeft, initTop, src = PhotoIcon }: Props) => {
             placeholder={customTitle}
           />
         ) : (
-          <Title onDoubleClick={() => toggleInput()}>{customTitle}</Title>
+          <Title
+            onDoubleClick={() => toggleInput()}
+            {...longPressToggleInput()}
+          >
+            {customTitle}
+          </Title>
         )}
       </DraggableContainer>
       {windowOpen && (
@@ -110,21 +125,16 @@ interface PositionProps {
   left?: number
 }
 
-const WindowContainer = styled.div<PositionProps>`
-  position: fixed;
-  resize: both;
-  overflow: auto;
-  border: 1px solid black;
-  top: ${props => props.top}px;
-  left: ${props => props.left}px;
-  background-color: #f8eded;
-  z-index: 1000;
-`
-
 const EnlargedPhoto = styled.img`
   min-width: 200px;
   max-width: 50vw;
   max-height: 50vh;
+  @media (max-width: 800px) {
+    min-width: 50vw;
+    max-width: 100%;
+    max-height: 100%;
+    width: 100vw;
+  }
 `
 
 export default Photo

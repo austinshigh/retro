@@ -5,6 +5,7 @@ import styled from "styled-components"
 import FolderIcon from "../../images/FolderIcon.png"
 import { setDragImage } from "../../utils/DragUtility"
 import DesktopWindow from "./DesktopWindow"
+import { useLongPress } from "use-long-press"
 
 interface Props {
   title: string
@@ -29,6 +30,14 @@ const Folder = ({
   const [customTitle, setCustomTitle] = useState(title)
   const [editTitle, setEditTitle] = useState(false)
   const [windowOpen, setWindowOpen] = useState(false)
+
+  const longPressOpenWindow = useLongPress(() => {
+    handleWindowOpen()
+  })
+
+  const longPressToggleInput = useLongPress(() => {
+    toggleInput()
+  })
 
   function handleWindowOpen() {
     if (href) {
@@ -100,6 +109,19 @@ const Folder = ({
     }
   }
 
+  const onMobileDrag = (e: React.TouchEvent<HTMLElement>) => {
+    let touchLocation = e.targetTouches[0]
+    let x = touchLocation.pageX
+    let y = touchLocation.pageY
+
+    if (x !== 0 && y !== 0) {
+      setLeft(x)
+      setTop(y)
+    }
+  }
+
+  //   const onMobileDragEnd = (e: any) => {}
+
   function toggleInput() {
     setEditTitle(!editTitle)
   }
@@ -109,6 +131,7 @@ const Folder = ({
       <DraggableContainer
         top={top}
         left={left}
+        onTouchMove={e => onMobileDrag(e)}
         onDragStart={e => onFolderDragStart(e)}
         onDragCapture={e => onFolderDrag(e)}
         onDragEnd={e => onFolderDrag(e)}
@@ -119,6 +142,7 @@ const Folder = ({
           src={src}
           ref={iconRef}
           alt=""
+          {...longPressOpenWindow()}
           onDoubleClick={() => handleWindowOpen()}
         />
         {editTitle ? (
@@ -129,7 +153,12 @@ const Folder = ({
             maxLength={13}
           />
         ) : (
-          <Title onDoubleClick={() => toggleInput()}>{customTitle}</Title>
+          <Title
+            onDoubleClick={() => toggleInput()}
+            {...longPressToggleInput()}
+          >
+            {customTitle}
+          </Title>
         )}
       </DraggableContainer>
       {windowOpen && (
