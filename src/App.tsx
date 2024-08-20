@@ -10,11 +10,13 @@ import Homepage from "./pages/Hangman/pages/Homepage"
 import OnePlayer from "./pages/Hangman/pages/OnePlayer"
 import TwoPlayer from "./pages/Hangman/pages/TwoPlayer/TwoPlayer"
 import IFrame from "./pages/Hangman/IFrame/IFrame"
+import pixel from "./images/SinglePixel.png"
 
 const App = () => {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="/pixel" element={<img src={pixel} />} />
         <Route path="/" element={<Layout />}>
           <Route index element={<Biography />} />
           <Route path="/portfolio" element={<Portfolio />} />

@@ -1,15 +1,16 @@
-import React from "react"
-import EightBitLogo from "../images/8bitlogo.png"
+import React, { useState } from "react"
+import EightBitLogo from "../../images/8bitlogo.png"
 import styled from "styled-components"
+import DropDown from "./Dropdown"
 
 const RetroNav = () => {
   return (
     <StyledNav>
       <Logo src={EightBitLogo} />
-      <DropDown>File</DropDown>
-      <DropDown>Edit</DropDown>
-      <DropDown>View</DropDown>
-      <DropDown>Special</DropDown>
+      <DropDown title={"File"}></DropDown>
+      <DropDown title={"Edit"}></DropDown>
+      <DropDown title={"View"}></DropDown>
+      <DropDown title={"Special"}></DropDown>
     </StyledNav>
   )
 }
@@ -31,12 +32,6 @@ const StyledNav = styled.div`
 const Logo = styled.img`
   height: 22px;
   padding-left: 10px;
-`
-
-const DropDown = styled.div`
-  &:hover {
-    color: red;
-  }
 `
 
 export default RetroNav

@@ -1,18 +1,32 @@
 import React from "react"
 import { Outlet } from "react-router-dom"
 import styled from "styled-components"
-import RetroNav from "../components/RetroNav"
+import RetroNav from "../components/RetroNav/RetroNav"
 import Folder from "../components/desktop/Folder"
+import Resume from "../components/Resume"
+import Applications from "../pages/Windows/Applications"
+import IFrame from "../pages/Hangman/IFrame/IFrame"
+import Photos from "../pages/Windows/Photos"
 
 const Layout = () => {
   return (
     <LayoutContainer>
       {/* <Navigation /> */}
       <RetroNav />
-      <Folder title="Resume" />
-      <Folder title="Applications" initLeft={0} initTop={150} />
-      <Folder title="Hangman" initLeft={0} initTop={250} />
-      {/* <SocialIcons /> */}
+      <DesktopContainer>
+        <Folder title="Resume">
+          <Resume />
+        </Folder>
+        <Folder title="Applications">
+          <Applications />
+        </Folder>
+        <Folder title="Hangman">
+          <IFrame />
+        </Folder>
+        <Folder title="Carpentry">
+          <Photos />
+        </Folder>
+      </DesktopContainer>
       <Outlet />
     </LayoutContainer>
   )
@@ -29,6 +43,15 @@ const LayoutContainer = styled.div`
   font-family: "Roboto";
   font-weight: 400;
   font-style: normal;
+`
+
+const DesktopContainer = styled.div`
+  display: flex;
+  padding: 50px;
+  flex-direction: column;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 10px;
 `
 
 export default Layout
