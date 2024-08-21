@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react"
+import React from "react"
 import styled from "styled-components"
 import "./DropDown.css"
 import EightBitLogo from "../../images/8BitLogo.png"
 import DropDownItem from "./DropDownItem"
-import { DropDownProps } from "./RetroNav"
 import useNavBar from "../../hooks/useNavBar"
+// import { useLongPress } from "use-long-press"
 
 interface LogoDropDownProps {
   requestToOpenNav: boolean
@@ -30,16 +30,48 @@ const DropDown = ({
     handleShutDown()
   }
 
+  // //   Mobile Event Handlers
+  // const longPressOpen = useLongPress(() => {
+  //   handleToggleDropDown()
+  // })
+
+  // const longPressPowerOff = useLongPress(() => {
+  //   handleShutDown()
+  // })
+
+  // const longPressReset = useLongPress(() => {
+  //   handleReset()
+  // })
+
+  // const longPressLogOut = useLongPress(() => {
+  //   handleLogout()
+  // })
+
   return (
     <>
-      <DropDownTitle onClick={() => handleToggleDropDown()}>
+      <DropDownTitle
+        onClick={() => handleToggleDropDown()}
+        // {...longPressOpen()}
+      >
         <Logo src={EightBitLogo} />
       </DropDownTitle>
       {dropDownExpanded && (
         <ExpandedDropDown>
-          <DropDownItem title={"Log Out"} handleClick={handleLogout} />
-          <DropDownItem title={"Reset"} handleClick={handleReset} />
-          <DropDownItem title={"Power Off"} handleClick={handleClickPowerOff} />
+          {/* <DropDownItem
+            title={"Log Out"}
+            handleClick={handleLogout}
+            {...longPressLogOut()}
+          /> */}
+          <DropDownItem
+            title={"Reset"}
+            handleClick={handleReset}
+            // {...longPressReset()}
+          />
+          <DropDownItem
+            title={"Power Off"}
+            handleClick={handleClickPowerOff}
+            // {...longPressPowerOff()}
+          />
         </ExpandedDropDown>
       )}
     </>

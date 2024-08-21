@@ -5,7 +5,7 @@ import styled from "styled-components"
 import FolderIcon from "../../images/FolderIcon.png"
 import { setDragImage } from "../../utils/DragUtility"
 import DesktopWindow from "./DesktopWindow"
-import { useLongPress } from "use-long-press"
+// import { useLongPress } from "use-long-press"
 
 interface Props {
   title: string
@@ -32,6 +32,9 @@ const Folder = ({
   const [windowOpen, setWindowOpen] = useState(false)
   const [dragging, setDragging] = useState(false)
 
+  const [internalX, setInternalX] = useState(0)
+  const [internalY, setInternalY] = useState(0)
+
   function handleWindowOpen() {
     if (href) {
       window.open(href, "_blank", "noopener")
@@ -40,6 +43,10 @@ const Folder = ({
 
   const onFolderDragStart = (ev: React.DragEvent<HTMLElement>) => {
     setDragImage(ev)
+    // set mouse position on element
+    let rect = ev.currentTarget.getBoundingClientRect()
+    setInternalX(ev.clientX - rect.left) // get mouse x and adjust for el.
+    setInternalY(ev.clientY - rect.top) // get mouse y and adjust for el.
   }
 
   const onFolderDrag = (ev: React.DragEvent<HTMLElement>) => {
@@ -80,9 +87,6 @@ const Folder = ({
     // let x = ev.clientX // get mouse x and adjust for el.
     // let y = ev.clientY // get mouse y and adjust for el.
 
-    let x
-    let y
-
     // TODO: need to pass a window ref to the child, so that a folder contained within a window knows the spacing of its
 
     // if (windowRef.current) {
@@ -92,9 +96,13 @@ const Folder = ({
     //   x = ev.clientX - rect.left // get mouse x and adjust for el.
     //   y = ev.clientY - rect.top // get mouse y and adjust for el.
     // } else {
-    x = ev.clientX // get mouse x and adjust for el.
-    y = ev.clientY // get mouse y and adjust for el.
+    // x = ev.clientX // get mouse x and adjust for el.
+    // y = ev.clientY // get mouse y and adjust for el.
     // }
+
+    // account for mouse position offset
+    let x = ev.clientX - internalX
+    let y = ev.clientY - internalY
 
     if (x !== 0 && y !== 0) {
       setLeft(x)
@@ -107,17 +115,17 @@ const Folder = ({
   }
 
   //   Mobile Event Handlers
-  const longPressOpenWindow = useLongPress(() => {
-    if (!dragging) {
-      handleWindowOpen()
-    }
-  })
+  //   const longPressOpenWindow = useLongPress(() => {
+  //     if (!dragging) {
+  //       handleWindowOpen()
+  //     }
+  //   })
 
-  const longPressToggleInput = useLongPress(() => {
-    if (!dragging) {
-      toggleInput()
-    }
-  })
+  //   const longPressToggleInput = useLongPress(() => {
+  //     if (!dragging) {
+  //       toggleInput()
+  //     }
+  //   })
 
   const onMobileDrag = (e: React.TouchEvent<HTMLElement>) => {
     setDragging(true)
@@ -148,7 +156,7 @@ const Folder = ({
           src={src}
           ref={iconRef}
           alt=""
-          {...longPressOpenWindow()}
+          //   {...longPressOpenWindow()}
           onDoubleClick={() => handleWindowOpen()}
         />
         {editTitle ? (
@@ -161,7 +169,7 @@ const Folder = ({
         ) : (
           <Title
             onDoubleClick={() => toggleInput()}
-            {...longPressToggleInput()}
+            // {...longPressToggleInput()}
           >
             {customTitle}
           </Title>

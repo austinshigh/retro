@@ -4,6 +4,7 @@ import "./DropDown.css"
 import DropDownItem from "./DropDownItem"
 import useNavBar from "../../hooks/useNavBar"
 import { DropDownProps } from "./RetroNav"
+// import { useLongPress } from "use-long-press"
 
 const DropDown = ({ requestToOpenNav, setRequestToOpenNav }: DropDownProps) => {
   const { handleToggleDropDown, dropDownExpanded } = useNavBar(
@@ -22,11 +23,21 @@ const DropDown = ({ requestToOpenNav, setRequestToOpenNav }: DropDownProps) => {
     console.log("timezone")
   }
 
+  // //   Mobile Event Handlers
+  // const longPressOpen = useLongPress(() => {
+  //   handleToggleDropDown()
+  // })
+
+  // const longPressSettings = useLongPress(() => {
+  //   handleClickSystemSettings()
+  // })
+
   return (
     <>
       <DropDownTitle
         className={dropDownExpanded ? "expanded" : "collapsed"}
         onClick={() => handleToggleDropDown()}
+        // {...longPressOpen()}
       >
         View
       </DropDownTitle>
@@ -35,6 +46,7 @@ const DropDown = ({ requestToOpenNav, setRequestToOpenNav }: DropDownProps) => {
           <DropDownItem
             title={"System Settings"}
             handleClick={handleClickSystemSettings}
+            // {...longPressSettings()}
           />
         </ExpandedDropDown>
       )}

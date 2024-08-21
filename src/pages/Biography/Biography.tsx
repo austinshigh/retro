@@ -1,11 +1,11 @@
 import React from "react"
 import portrait from "../../images/portrait.png"
 import "./Biography.css"
-import Resume from "../../components/Resume"
+import Resume from "../Windows/Resume"
 import styled from "styled-components"
 import Folder from "../../components/desktop/Folder"
 import Applications from "../Windows/Applications"
-import IFrame from "../Hangman/IFrame/IFrame"
+import IFrame from "../Windows/IFrame/IFrame"
 import Photos from "../Windows/Photos"
 
 const Biography = () => {

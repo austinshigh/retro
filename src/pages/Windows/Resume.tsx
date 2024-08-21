@@ -1,6 +1,5 @@
 import styled from "styled-components"
-import portrait from "../images/portrait.png"
-import ScholasticLogo from "../images/scholastic.png"
+import portrait from "../../images/portrait.png"
 
 const Resume = () => {
   return (

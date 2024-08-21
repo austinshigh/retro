@@ -65,8 +65,8 @@ const WindowContainer = styled.div<PositionProps>`
   resize: both;
   overflow: auto;
   border: 1px solid black;
-  top: ${props => props.top}px;
-  left: ${props => props.left}px;
+  top: ${props => (props.top ? props.top : 100)}px;
+  left: ${props => (props.left ? props.left : 100)}px;
   background-color: #f8eded;
   z-index: 1000;
   /* width */
@@ -96,7 +96,8 @@ const WindowContainer = styled.div<PositionProps>`
     top: ${props => (props.top ? props.top : 50)}px;
     left: ${props => (props.left ? props.left : 0)}px;
     max-width: 100vw;
-    height: unset;
+    overflow: scroll;
+    height: 100%;
   }
 `
 

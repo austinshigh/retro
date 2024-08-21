@@ -5,7 +5,7 @@ import styled from "styled-components"
 import PhotoIcon from "../../images/FolderIcon.png"
 import { DraggableContainer, DraggableImage, Input, Title } from "./Folder"
 import DesktopWindow from "./DesktopWindow"
-import { useLongPress } from "use-long-press"
+// import { useLongPress } from "use-long-press"
 
 interface Props {
   title: string
@@ -53,17 +53,17 @@ const Photo = ({ title, initLeft, initTop, src = PhotoIcon }: Props) => {
   }
 
   //   Mobile Event Handlers
-  const longPressOpenWindow = useLongPress(() => {
-    if (!dragging) {
-      handleWindowOpen()
-    }
-  })
+  //   const longPressOpenWindow = useLongPress(() => {
+  //     if (!dragging) {
+  //       handleWindowOpen()
+  //     }
+  //   })
 
-  const longPressToggleInput = useLongPress(() => {
-    if (!dragging) {
-      toggleInput()
-    }
-  })
+  //   const longPressToggleInput = useLongPress(() => {
+  //     if (!dragging) {
+  //       toggleInput()
+  //     }
+  //   })
 
   const onMobileDrag = (e: React.TouchEvent<HTMLElement>) => {
     setDragging(true)
@@ -94,7 +94,7 @@ const Photo = ({ title, initLeft, initTop, src = PhotoIcon }: Props) => {
           src={src}
           alt=""
           onDoubleClick={() => handleWindowOpen()}
-          {...longPressOpenWindow()}
+          //   {...longPressOpenWindow()}
         />
         {editTitle ? (
           <Input
@@ -105,7 +105,7 @@ const Photo = ({ title, initLeft, initTop, src = PhotoIcon }: Props) => {
         ) : (
           <Title
             onDoubleClick={() => toggleInput()}
-            {...longPressToggleInput()}
+            // {...longPressToggleInput()}
           >
             {customTitle}
           </Title>

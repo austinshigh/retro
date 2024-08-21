@@ -4,6 +4,7 @@ import "./DropDown.css"
 import DropDownItem from "./DropDownItem"
 import useNavBar from "../../hooks/useNavBar"
 import { DropDownProps } from "./RetroNav"
+// import { useLongPress } from "use-long-press"
 
 const DropDown = ({ requestToOpenNav, setRequestToOpenNav }: DropDownProps) => {
   const { handleToggleDropDown, dropDownExpanded } = useNavBar(
@@ -13,9 +14,19 @@ const DropDown = ({ requestToOpenNav, setRequestToOpenNav }: DropDownProps) => {
 
   const handleClickPrint = () => {}
 
+  //   Mobile Event Handlers
+  // const longPressOpen = useLongPress(() => {
+  //   handleToggleDropDown()
+  // })
+
   return (
     <>
-      <DropDownTitle onClick={() => handleToggleDropDown()}>File</DropDownTitle>
+      <DropDownTitle
+        onClick={() => handleToggleDropDown()}
+        // {...longPressOpen()}
+      >
+        File
+      </DropDownTitle>
       {dropDownExpanded && (
         <ExpandedDropDown>
           <DropDownItem title={"Print"} handleClick={handleClickPrint} />
