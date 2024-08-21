@@ -4,29 +4,38 @@ import solidity from "../../images/Solidity8Bit.png"
 import react from "../../images/ReactLogo8Bit.png"
 import java from "../../images/Java8Bit.png"
 import { WindowContainer } from "./Photos"
+import { WindowProps } from "../Biography/Biography"
 
-const Applications = () => {
+const Applications = ({ windowTop, windowLeft }: WindowProps) => {
   return (
     <WindowContainer>
       <Folder
         title={"Parametric Insurance Application"}
         src={solidity}
         href={"https://github.com/austinshigh/parametric-insurance"}
+        windowTop={windowTop}
+        windowLeft={windowLeft}
       />
       <Folder
         title={"Wildtrack Image Upload"}
         src={react}
         href={"https://ai.wildtrack.org/"}
+        windowTop={windowTop}
+        windowLeft={windowLeft}
       />
       <Folder
         title={"Autonomous Store Service"}
         src={java}
         href={"https://github.com/austinshigh/autonomous-store-service/"}
+        windowTop={windowTop}
+        windowLeft={windowLeft}
       />
       <Folder
         title={"BFA CSV App"}
         src={react}
         href={"https://bfa-csv.web.app/"}
+        windowTop={windowTop}
+        windowLeft={windowLeft}
       />
     </WindowContainer>
   )

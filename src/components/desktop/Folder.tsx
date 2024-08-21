@@ -14,6 +14,8 @@ interface Props {
   src?: string
   href?: string
   children?: ReactNode
+  windowTop?: number
+  windowLeft?: number
 }
 
 const Folder = ({
@@ -23,6 +25,8 @@ const Folder = ({
   src = FolderIcon,
   href,
   children,
+  windowTop = 0,
+  windowLeft = 0,
 }: Props) => {
   const [top, setTop] = useState(initTop)
   const [left, setLeft] = useState(initLeft)
@@ -50,69 +54,21 @@ const Folder = ({
   }
 
   const onFolderDrag = (ev: React.DragEvent<HTMLElement>) => {
-    // if (iconRef.current) {
-    //   let rect = iconRef.current.getBoundingClientRect()
-    //   console.log(rect.top, rect.right, rect.bottom, rect.left)
-    // }
-
-    // let rect = (ev.target as HTMLImageElement).getBoundingClientRect()
-
-    // var x = ev.clientX - rect.left // get mouse x and adjust for el.
-    // var y = ev.clientY - rect.top // get mouse y and adjust for el.
-
-    // console.log(x + "   " + y)
-
-    // setLeft(x)
-    // setTop(y)
-
-    // var dragIcon = document.createElement("img")
-    // dragIcon.src = "blank.png"
-    // dragIcon.width = 100
-    // ev.dataTransfer.setDragImage(dragIcon, -10, -10)
-
-    // var crt = this.cloneNode(true)
-    // crt.style.backgroundColor = "red"
-    // crt.style.display = "none" /* or visibility: hidden, or any of the above */
-    // document.body.appendChild(crt)
-    // ev.dataTransfer.setDragImage(crt, 0, 0)
-
-    // let img = document.createElement("img")
-    // img.src = "blank.png"
-    // img.style.display = "none"
-    // document.body.appendChild(img)
-    // ev.dataTransfer.setDragImage(img, 0, 0)
-
-    // ev.dataTransfer.setDragImage(img, 0, 0)
-
-    // let x = ev.clientX // get mouse x and adjust for el.
-    // let y = ev.clientY // get mouse y and adjust for el.
-
-    // TODO: need to pass a window ref to the child, so that a folder contained within a window knows the spacing of its
-
-    // if (windowRef.current) {
-    //   let rect = windowRef.current.getBoundingClientRect()
-    //   console.log(rect.top, rect.right, rect.bottom, rect.left)
-
-    //   x = ev.clientX - rect.left // get mouse x and adjust for el.
-    //   y = ev.clientY - rect.top // get mouse y and adjust for el.
-    // } else {
-    // x = ev.clientX // get mouse x and adjust for el.
-    // y = ev.clientY // get mouse y and adjust for el.
-    // }
-
-    // account for mouse position offset
-    let x = ev.clientX - internalX
-    let y = ev.clientY - internalY
-
-    if (x !== 0 && y !== 0) {
-      setLeft(x)
-      setTop(y)
+    if (ev.clientX !== 0 && ev.clientY !== 0) {
+      // account for mouse position offset
+      setLeft(ev.clientX - internalX - windowLeft)
+      setTop(ev.clientY - internalY - windowTop)
     }
   }
 
-  function toggleInput() {
-    setEditTitle(!editTitle)
+  const onFolderDragEnd = (ev: React.DragEvent<HTMLElement>) => {
+    setLeft(ev.clientX - internalX - windowLeft)
+    setTop(ev.clientY - internalY - windowTop)
   }
+
+  //   function toggleInput() {
+  //     setEditTitle(!editTitle)
+  //   }
 
   //   Mobile Event Handlers
   //   const longPressOpenWindow = useLongPress(() => {
@@ -130,12 +86,9 @@ const Folder = ({
   const onMobileDrag = (e: React.TouchEvent<HTMLElement>) => {
     setDragging(true)
     let touchLocation = e.targetTouches[0]
-    let x = touchLocation.pageX
-    let y = touchLocation.pageY
-
-    if (x !== 0 && y !== 0) {
-      setLeft(x)
-      setTop(y)
+    if (touchLocation.pageX !== 0 && touchLocation.pageY !== 0) {
+      setLeft(touchLocation.pageX)
+      setTop(touchLocation.pageY)
     }
   }
 
@@ -148,18 +101,19 @@ const Folder = ({
         onTouchEnd={() => setDragging(false)}
         onDragStart={e => onFolderDragStart(e)}
         onDragCapture={e => onFolderDrag(e)}
-        onDragEnd={e => onFolderDrag(e)}
+        onDragEnd={e => onFolderDragEnd(e)}
         draggable={true}
         tabIndex={0}
+        onDoubleClick={() => handleWindowOpen()}
       >
         <DraggableImage
           src={src}
           ref={iconRef}
           alt=""
           //   {...longPressOpenWindow()}
-          onDoubleClick={() => handleWindowOpen()}
         />
-        {editTitle ? (
+        <Title>{customTitle}</Title>
+        {/* {editTitle ? (
           <Input
             onBlur={() => toggleInput()}
             onChange={(e: any) => setCustomTitle(e.target.value)}
@@ -167,19 +121,16 @@ const Folder = ({
             maxLength={13}
           />
         ) : (
-          <Title
-            onDoubleClick={() => toggleInput()}
-            // {...longPressToggleInput()}
-          >
-            {customTitle}
-          </Title>
-        )}
+          <Title {...longPressToggleInput()}>{customTitle}</Title>
+        )} */}
       </DraggableContainer>
       {windowOpen && (
         <DesktopWindow
           title={customTitle}
           handleCloseWindow={() => setWindowOpen(false)}
         >
+          {/* I need the applications window to pass its windowTop and windowLeft values to its children */}
+          {/* I have the other way around going rn */}
           {children}
         </DesktopWindow>
       )}

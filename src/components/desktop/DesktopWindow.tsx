@@ -1,4 +1,4 @@
-import React, { ReactNode, Ref, useState } from "react"
+import React, { ReactNode, Ref, useEffect, useState } from "react"
 import styled from "styled-components"
 import { setDragImage } from "../../utils/DragUtility"
 
@@ -9,11 +9,28 @@ interface Props {
 }
 
 const DesktopWindow = ({ handleCloseWindow, title, children }: Props) => {
+  const [internalX, setInternalX] = useState(0)
+  const [internalY, setInternalY] = useState(0)
+
   const [windowTop, setWindowTop] = useState(0)
   const [windowLeft, setWindowLeft] = useState(0)
 
-  const onWindowDragStart = (ev: React.DragEvent<HTMLElement>) => {
+  function onWindowDragStart(ev: React.DragEvent<HTMLElement>) {
     setDragImage(ev)
+    // set mouse position on element
+    let rect = ev.currentTarget.getBoundingClientRect()
+    setInternalX(ev.clientX - rect.left) // get mouse x and adjust for el.
+    setInternalY(ev.clientY - rect.top) // get mouse y and adjust for el.
+  }
+
+  function onWindowDrag(ev: React.DragEvent<HTMLElement>) {
+    let x = ev.clientX // get mouse x
+    let y = ev.clientY // get mouse y
+
+    if (x !== 0 && y !== 0) {
+      setWindowLeft(x - internalX)
+      setWindowTop(y - internalY)
+    }
   }
 
   const onMobileDrag = (e: React.TouchEvent<HTMLElement>) => {
@@ -27,15 +44,11 @@ const DesktopWindow = ({ handleCloseWindow, title, children }: Props) => {
     }
   }
 
-  function onWindowDrag(ev: React.DragEvent<HTMLElement>) {
-    let x = ev.clientX // get mouse x
-    let y = ev.clientY // get mouse y
+  // useEffect(() => {
+  //   console.log("handleSetPosition", windowLeft, windowTop)
+  //   handleSetPositionForChild(windowLeft, windowTop)
+  // }, [windowTop, windowLeft])
 
-    if (x !== 0 && y !== 0) {
-      setWindowLeft(x)
-      setWindowTop(y)
-    }
-  }
   return (
     <WindowContainer left={windowLeft} top={windowTop}>
       <TopBar
@@ -48,7 +61,12 @@ const DesktopWindow = ({ handleCloseWindow, title, children }: Props) => {
         <Title>{title}</Title>
         <CloseButton onClick={() => handleCloseWindow()}>X</CloseButton>
       </TopBar>
-      {children}
+      {React.Children.map(children, child =>
+        React.cloneElement(child as React.ReactElement<any>, {
+          windowTop: windowTop,
+          windowLeft: windowLeft,
+        }),
+      )}
     </WindowContainer>
   )
 }
@@ -65,8 +83,8 @@ const WindowContainer = styled.div<PositionProps>`
   resize: both;
   overflow: auto;
   border: 1px solid black;
-  top: ${props => (props.top ? props.top : 100)}px;
-  left: ${props => (props.left ? props.left : 100)}px;
+  top: ${props => (props.top ? props.top : 0)}px;
+  left: ${props => (props.left ? props.left : 0)}px;
   background-color: #f8eded;
   z-index: 1000;
   /* width */
@@ -93,7 +111,7 @@ const WindowContainer = styled.div<PositionProps>`
     background-color: #555;
   }
   @media (max-width: 800px) {
-    top: ${props => (props.top ? props.top : 50)}px;
+    top: ${props => (props.top ? props.top : 0)}px;
     left: ${props => (props.left ? props.left : 0)}px;
     max-width: 100vw;
     overflow: scroll;

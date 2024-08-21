@@ -8,6 +8,11 @@ import Applications from "../Windows/Applications"
 import IFrame from "../Windows/IFrame/IFrame"
 import Photos from "../Windows/Photos"
 
+export interface WindowProps {
+  windowTop?: number
+  windowLeft?: number
+}
+
 const Biography = () => {
   return (
     <>
