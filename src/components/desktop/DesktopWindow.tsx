@@ -44,30 +44,57 @@ const DesktopWindow = ({ handleCloseWindow, title, children }: Props) => {
     }
   }
 
-  // useEffect(() => {
-  //   console.log("handleSetPosition", windowLeft, windowTop)
-  //   handleSetPositionForChild(windowLeft, windowTop)
-  // }, [windowTop, windowLeft])
+  function getRandomX() {
+    return Math.floor(Math.random() * (600 - 200 + 1)) + 200
+  }
+
+  function getRandomY() {
+    return Math.floor(Math.random() * (300 - 100 + 1)) + 100
+  }
+
+  function isMobile() {
+    let width = window.screen.width
+    console.log(width)
+    if (width < 500) {
+      return true
+    } else {
+      return false
+    }
+  }
+
+  useEffect(() => {
+    if (isMobile()) {
+      setWindowTop(50)
+      setWindowLeft(0)
+    } else {
+      setWindowTop(getRandomY())
+      setWindowLeft(getRandomX())
+    }
+  }, [])
 
   return (
-    <WindowContainer left={windowLeft} top={windowTop}>
-      <TopBar
-        draggable={true}
-        onTouchMove={e => onMobileDrag(e)}
-        onDragStart={e => onWindowDragStart(e)}
-        onDragCapture={e => onWindowDrag(e)}
-        onDragEnd={e => onWindowDrag(e)}
-      >
-        <Title>{title}</Title>
-        <CloseButton onClick={() => handleCloseWindow()}>X</CloseButton>
-      </TopBar>
-      {React.Children.map(children, child =>
-        React.cloneElement(child as React.ReactElement<any>, {
-          windowTop: windowTop,
-          windowLeft: windowLeft,
-        }),
+    <>
+      {!(windowTop === 0 && windowLeft === 0) && (
+        <WindowContainer left={windowLeft} top={windowTop}>
+          <TopBar
+            draggable={true}
+            onTouchMove={e => onMobileDrag(e)}
+            onDragStart={e => onWindowDragStart(e)}
+            onDragCapture={e => onWindowDrag(e)}
+            onDragEnd={e => onWindowDrag(e)}
+          >
+            <Title>{title}</Title>
+            <CloseButton onClick={() => handleCloseWindow()}>X</CloseButton>
+          </TopBar>
+          {React.Children.map(children, child =>
+            React.cloneElement(child as React.ReactElement<any>, {
+              windowTop: windowTop,
+              windowLeft: windowLeft,
+            }),
+          )}
+        </WindowContainer>
       )}
-    </WindowContainer>
+    </>
   )
 }
 
