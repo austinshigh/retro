@@ -1,19 +1,24 @@
 import React from "react"
-import portrait from "../../images/portrait.png"
-import "./Biography.css"
+import "./Desktop.css"
 import Resume from "../Windows/Resume"
 import styled from "styled-components"
 import Folder from "../../components/desktop/Folder"
 import Applications from "../Windows/Applications"
 import IFrame from "../Windows/IFrame/IFrame"
 import Photos from "../Windows/Photos"
+import { WindowSize } from "../../components/desktop/DesktopWindow"
+import { useAppSelector } from "../../app/hooks"
+import {
+  ColorNames,
+  selectColor,
+} from "../../components/backgroundColor/backgroundColor"
 
 export interface WindowProps {
-  windowTop?: number
-  windowLeft?: number
+  windowtop?: number
+  windowleft?: number
 }
 
-const Biography = () => {
+const Desktop = () => {
   return (
     <>
       <DesktopContainer>
@@ -23,7 +28,7 @@ const Biography = () => {
         <Folder title="Applications">
           <Applications />
         </Folder>
-        <Folder title="Hangman">
+        <Folder title="Hangman" windowSize={WindowSize.LARGE}>
           <IFrame />
         </Folder>
         <Folder title="Carpentry">
@@ -45,4 +50,4 @@ const DesktopContainer = styled.div`
   align-content: flex-end;
 `
 
-export default Biography
+export default Desktop

@@ -1,7 +1,7 @@
 import React from "react"
 import styled from "styled-components"
 import "./DropDown.css"
-import EightBitLogo from "../../images/8BitLogo.png"
+import EightBitLogo from "../../images/8BitWhiteLogo.png"
 import DropDownItem from "./DropDownItem"
 import useNavBar from "../../hooks/useNavBar"
 // import { useLongPress } from "use-long-press"
@@ -21,10 +21,8 @@ const DropDown = ({
   handleReset,
   handleLogout,
 }: LogoDropDownProps) => {
-  const { handleToggleDropDown, dropDownExpanded } = useNavBar(
-    requestToOpenNav,
-    setRequestToOpenNav,
-  )
+  const { handleOpenDropDown, dropDownExpanded, handleCloseDropDown } =
+    useNavBar(requestToOpenNav, setRequestToOpenNav)
 
   const handleClickPowerOff = () => {
     handleShutDown()
@@ -50,7 +48,9 @@ const DropDown = ({
   return (
     <>
       <DropDownTitle
-        onClick={() => handleToggleDropDown()}
+        onFocus={() => handleOpenDropDown()}
+        onBlur={() => handleCloseDropDown()}
+        tabIndex={0}
         // {...longPressOpen()}
       >
         <Logo src={EightBitLogo} />

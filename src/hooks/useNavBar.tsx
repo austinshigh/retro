@@ -4,13 +4,14 @@ const useNavBar = (requestToOpenNav: boolean, setRequestToOpenNav: any) => {
   const [expandPending, setExpandPending] = useState(false)
   const [dropDownExpanded, setDropDownExpanded] = useState(false)
 
-  const handleToggleDropDown = () => {
-    if (dropDownExpanded) {
+  const handleCloseDropDown = () => {
+    setTimeout(function () {
       setDropDownExpanded(false)
-    } else {
-      setExpandPending(true)
-      setRequestToOpenNav(true)
-    }
+    }, 1 * 100)
+  }
+
+  const handleOpenDropDown = () => {
+    setDropDownExpanded(true)
   }
 
   useEffect(() => {
@@ -25,7 +26,8 @@ const useNavBar = (requestToOpenNav: boolean, setRequestToOpenNav: any) => {
   }, [requestToOpenNav, expandPending])
   return {
     dropDownExpanded,
-    handleToggleDropDown,
+    handleOpenDropDown,
+    handleCloseDropDown,
   }
 }
 

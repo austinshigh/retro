@@ -61,6 +61,8 @@ const StyledNav = styled.div`
   gap: 10px;
   width: 100%;
   position: fixed;
+  top: 0;
+  left: 0;
   height: 25px;
   /* padding: 3px; */
   background-color: lightgray;

@@ -1,5 +1,5 @@
 import React from "react"
-import { Counter } from "../components/counter/Counter"
+import { Counter } from "../components/backgroundColor/Counter"
 import { Quotes } from "../components/quotes/Quotes"
 import logo from "../logo.svg"
 

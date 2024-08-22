@@ -2,17 +2,27 @@ import React, { ReactNode, Ref, useEffect, useState } from "react"
 import styled from "styled-components"
 import { setDragImage } from "../../utils/DragUtility"
 
+export enum WindowSize {
+  LARGE = 75,
+}
+
 interface Props {
   handleCloseWindow: any
   title: string
   children: ReactNode
+  windowSize?: WindowSize
 }
 
-const DesktopWindow = ({ handleCloseWindow, title, children }: Props) => {
+const DesktopWindow = ({
+  handleCloseWindow,
+  title,
+  children,
+  windowSize,
+}: Props) => {
   const [internalX, setInternalX] = useState(0)
   const [internalY, setInternalY] = useState(0)
 
-  const [windowTop, setWindowTop] = useState(0)
+  const [windowtop, setWindowTop] = useState(0)
   const [windowLeft, setWindowLeft] = useState(0)
 
   function onWindowDragStart(ev: React.DragEvent<HTMLElement>) {
@@ -54,7 +64,6 @@ const DesktopWindow = ({ handleCloseWindow, title, children }: Props) => {
 
   function isMobile() {
     let width = window.screen.width
-    console.log(width)
     if (width < 500) {
       return true
     } else {
@@ -74,8 +83,8 @@ const DesktopWindow = ({ handleCloseWindow, title, children }: Props) => {
 
   return (
     <>
-      {!(windowTop === 0 && windowLeft === 0) && (
-        <WindowContainer left={windowLeft} top={windowTop}>
+      {!(windowtop === 0 && windowLeft === 0) && (
+        <WindowContainer left={windowLeft} top={windowtop} size={windowSize}>
           <TopBar
             draggable={true}
             onTouchMove={e => onMobileDrag(e)}
@@ -88,8 +97,8 @@ const DesktopWindow = ({ handleCloseWindow, title, children }: Props) => {
           </TopBar>
           {React.Children.map(children, child =>
             React.cloneElement(child as React.ReactElement<any>, {
-              windowTop: windowTop,
-              windowLeft: windowLeft,
+              windowtop: windowtop,
+              windowleft: windowLeft,
             }),
           )}
         </WindowContainer>
@@ -98,22 +107,25 @@ const DesktopWindow = ({ handleCloseWindow, title, children }: Props) => {
   )
 }
 
-interface PositionProps {
+interface WindowContainerProps {
   top?: number
   left?: number
+  size?: WindowSize
 }
 
-const WindowContainer = styled.div<PositionProps>`
+const WindowContainer = styled.div<WindowContainerProps>`
   position: fixed;
   width: 400px;
-  height: 400px;
+  height: ${props => (props.size ? props.size : 50)}vh;
+  max-height: ${props => (props.size ? props.size : 75)}vh;
+  max-width: 50vw;
   resize: both;
   overflow: auto;
   border: 1px solid black;
   top: ${props => (props.top ? props.top : 0)}px;
   left: ${props => (props.left ? props.left : 0)}px;
   background-color: #f8eded;
-  z-index: 1000;
+  z-index: 2000;
   /* width */
   &::-webkit-scrollbar {
     width: 20px;
@@ -135,14 +147,14 @@ const WindowContainer = styled.div<PositionProps>`
   }
   &::-webkit-resizer {
     display: none;
-    background-color: #555;
+    /* background-color: #555; */
   }
   @media (max-width: 800px) {
     top: ${props => (props.top ? props.top : 0)}px;
     left: ${props => (props.left ? props.left : 0)}px;
     max-width: 100vw;
     overflow: scroll;
-    height: 100%;
+    height: ${props => (props.size ? `${props.size}vh` : "100%")};
   }
 `
 

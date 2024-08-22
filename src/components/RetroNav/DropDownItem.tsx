@@ -8,7 +8,7 @@ interface Props {
 
 const DropDownItem = ({ handleClick, title }: Props) => {
   return (
-    <StyledDropDownItem onClick={() => handleClick()}>
+    <StyledDropDownItem onClick={() => handleClick()} tabIndex={0}>
       {title}
     </StyledDropDownItem>
   )

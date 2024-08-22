@@ -8,10 +8,8 @@ import { DropDownProps } from "./RetroNav"
 // import { useLongPress } from "use-long-press"
 
 const DropDown = ({ requestToOpenNav, setRequestToOpenNav }: DropDownProps) => {
-  const { handleToggleDropDown, dropDownExpanded } = useNavBar(
-    requestToOpenNav,
-    setRequestToOpenNav,
-  )
+  const { handleOpenDropDown, handleCloseDropDown, dropDownExpanded } =
+    useNavBar(requestToOpenNav, setRequestToOpenNav)
   const handleClickNewFolder = () => {}
 
   // //   Mobile Event Handlers
@@ -22,19 +20,20 @@ const DropDown = ({ requestToOpenNav, setRequestToOpenNav }: DropDownProps) => {
   return (
     <>
       <DropDownTitle
-        onClick={() => handleToggleDropDown()}
-        // {...longPressOpen()}
+        onFocus={() => handleOpenDropDown()}
+        onBlur={() => handleCloseDropDown()}
+        tabIndex={0}
       >
         Edit
       </DropDownTitle>
-      {dropDownExpanded && (
+      {/* {dropDownExpanded && (
         <StyledExpandedDropDown>
           <DropDownItem
             title={"New Folder"}
             handleClick={handleClickNewFolder}
           />
         </StyledExpandedDropDown>
-      )}
+      )} */}
     </>
   )
 }
