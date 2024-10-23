@@ -9,12 +9,18 @@ const ResumeContent = () => {
         <img src={portrait} />
         <CompanyTitle>Scholastic</CompanyTitle>
         {/* <CompanyLogo src={ScholasticLogo} /> */}
-        <JobTitle>Software Engineer II</JobTitle>
-        <JobDetails>New York, NY (remote) | Oct 2023 - Present</JobDetails>
+        <JobTitle>Software Engineer III</JobTitle>
+        <JobDetails>New York, NY (remote) | Oct 2024 - Present</JobDetails>
         <p>
-          Designed and Implemented Flagship React Application: BookFair Host Hub
+          Owned development of team’s flagship application: Book Fair Host Hub
         </p>
-        <p>Negotiated API and Product specs for development work</p>
+        <JobTitle>Software Engineer II</JobTitle>
+        <JobDetails>New York, NY (remote) | Oct 2023 - Oct 2024</JobDetails>
+        <p>Led implementation of Book Fair Financial Form</p>
+        <p>
+          Wrote server-side logic to deliver accurate financial information to
+          users
+        </p>
 
         <JobTitle>Software Engineer I</JobTitle>
         <JobDetails>New York, NY (hybrid) | Jan 2022 - Oct 2023</JobDetails>
