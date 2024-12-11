@@ -1,6 +1,5 @@
-import React from "react"
-import Photo from "../../components/desktop/Photo"
 import styled from "styled-components"
+import Photo from "../../components/desktop/Photo"
 import { WindowProps } from "../Desktop/Desktop"
 
 const Photos = ({ windowtop, windowleft }: WindowProps) => {

@@ -5,7 +5,6 @@ import { createAppSlice } from "../../app/createAppSlice"
 export enum ColorNames {
   GRAY = "#f8eded",
   DARKGRAY = "#6c6c6c",
-  GREEN = "#8ACE00",
   PINK = "#ffb1eb",
 }
 

@@ -38,16 +38,6 @@ const RadioComponent: React.FC<Props> = ({ color, setColor }) => (
       />{" "}
       Pink
     </div>
-    <div>
-      <input
-        type="radio"
-        value={ColorNames.GREEN}
-        name="color"
-        checked={color === ColorNames.GREEN}
-        onChange={() => setColor(ColorNames.GREEN)}
-      />{" "}
-      Green
-    </div>
   </div>
 )
 
