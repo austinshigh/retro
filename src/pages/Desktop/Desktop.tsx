@@ -5,7 +5,6 @@ import useResizeWindow from "../../hooks/useResizeWindow"
 import Applications from "../Windows/Applications"
 import IFrame from "../Windows/IFrame/IFrame"
 import Photos from "../Windows/Photos"
-import React from "../Windows/React"
 import Resume from "../Windows/Resume"
 import "./Desktop.css"
 
@@ -32,15 +31,15 @@ const Desktop = () => {
         <Folder title="Carpentry">
           <Photos />
         </Folder>
-        <Folder title="React Component Demos">
+        {/* <Folder title="React Component Demos">
           <React />
-        </Folder>
+        </Folder> */}
         {/* <Folder title="Trash" src={Trashcan}></Folder> */}
-        <ScreenDimensions>
+        {/* <ScreenDimensions>
           <p>
             {height},{width}
           </p>
-        </ScreenDimensions>
+        </ScreenDimensions> */}
       </DesktopContainer>
     </>
   )
