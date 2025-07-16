@@ -4,8 +4,7 @@ import FileIcon from "../../components/desktop/FileIcon"
 import java from "../../images/Java8Bit.png"
 import react from "../../images/ReactLogo8Bit.png"
 import solidity from "../../images/Solidity8Bit.png"
-import type { WindowProps } from "../Desktop/Desktop"
-import { WindowContainer } from "./Photos"
+import { WindowContainer, type WindowProps } from "../Desktop/Desktop"
 
 const Applications = ({ windowtop, windowleft }: WindowProps) => {
   const [activeDescription, setActiveDescription] = useState("")
@@ -17,7 +16,7 @@ const Applications = ({ windowtop, windowleft }: WindowProps) => {
 
   return (
     <OuterFlexContainer>
-      <WindowContainer>
+      <StyledWindowContainer>
         <FileIcon
           title={"Partner Up Creator Dashboard"}
           src={react}
@@ -74,7 +73,7 @@ upload images!"
 replace a manual process. Commissioned by the licensing team at BFA
 Fashion Photography."
         />
-      </WindowContainer>
+      </StyledWindowContainer>
       <DescriptionContainer>{activeDescription}</DescriptionContainer>
     </OuterFlexContainer>
   )
@@ -101,6 +100,10 @@ const OuterFlexContainer = styled.div`
   @media (max-width: 750) {
     flex-direction: column;
   }
+`
+
+const StyledWindowContainer = styled(WindowContainer)`
+  justify-content: center;
 `
 
 {

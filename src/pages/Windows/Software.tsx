@@ -1,13 +1,13 @@
+import styled from "styled-components"
 import Folder from "../../components/desktop/Folder"
 import type { WindowProps } from "../Desktop/Desktop"
 import Applications from "./Applications"
 import Games from "./Games"
-import { WindowContainer } from "./Photos"
-import ReactDemo from "./ReactDemo"
+import ReactDemo, { WindowContainer } from "./ReactDemo"
 
 const Software = ({ windowtop, windowleft }: WindowProps) => {
   return (
-    <WindowContainer>
+    <StyledWindowContainer>
       <Folder
         title="Applications"
         windowtop={windowtop}
@@ -16,7 +16,7 @@ const Software = ({ windowtop, windowleft }: WindowProps) => {
         <Applications />
       </Folder>
       <Folder
-        title="React Component Demos"
+        title="React Components"
         windowtop={windowtop}
         windowleft={windowleft}
       >
@@ -25,8 +25,14 @@ const Software = ({ windowtop, windowleft }: WindowProps) => {
       <Folder title="Games" windowtop={windowtop} windowleft={windowleft}>
         <Games />
       </Folder>
-    </WindowContainer>
+    </StyledWindowContainer>
   )
 }
 
 export default Software
+
+const StyledWindowContainer = styled(WindowContainer)`
+  flex-direction: column;
+  justify-content: center;
+  gap: 15px;
+`

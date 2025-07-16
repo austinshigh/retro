@@ -61,6 +61,7 @@ const ReactDemo = ({ windowtop, windowleft }: WindowProps) => {
 
 export const WindowContainer = styled.div`
   display: flex;
+  justify-content: center;
   flex-wrap: wrap;
   width: 100%;
   gap: 20px;

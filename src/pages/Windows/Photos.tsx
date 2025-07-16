@@ -1,6 +1,5 @@
-import styled from "styled-components"
 import Photo from "../../components/desktop/Photo"
-import type { WindowProps } from "../Desktop/Desktop"
+import { WindowContainer, type WindowProps } from "../Desktop/Desktop"
 
 const Photos = ({ windowtop, windowleft }: WindowProps) => {
   return (
@@ -40,14 +39,5 @@ const Photos = ({ windowtop, windowleft }: WindowProps) => {
     </WindowContainer>
   )
 }
-
-export const WindowContainer = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  width: 100%;
-  gap: 20px;
-  padding: 20px;
-  justify-content: center;
-`
 
 export default Photos

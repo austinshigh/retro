@@ -7,9 +7,16 @@ interface Props {
   src: string
   windowtop?: number
   windowleft?: number
+  draggable?: boolean
 }
 
-const Photo = ({ title, windowleft, windowtop, src = PhotoIcon }: Props) => {
+const Photo = ({
+  title,
+  windowleft,
+  windowtop,
+  src = PhotoIcon,
+  draggable = false,
+}: Props) => {
   return (
     <>
       <Shortcut
@@ -18,6 +25,7 @@ const Photo = ({ title, windowleft, windowtop, src = PhotoIcon }: Props) => {
         type={ShortCutTypes.PHOTO}
         windowleft={windowleft}
         windowtop={windowtop}
+        draggable={draggable}
       >
         <EnlargedPhoto src={src} />
       </Shortcut>

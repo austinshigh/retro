@@ -10,6 +10,7 @@ interface Props {
   src?: string
   description?: string
   handleCurrentDescription: (input: string) => void
+  draggable?: boolean
 }
 
 const FileIcon = ({
@@ -21,6 +22,7 @@ const FileIcon = ({
   src,
   description,
   handleCurrentDescription,
+  draggable = false,
 }: Props) => {
   return (
     <Shortcut
@@ -32,6 +34,7 @@ const FileIcon = ({
       href={href}
       description={description}
       handleCurrentDescription={handleCurrentDescription}
+      draggable={draggable}
     />
   )
 }

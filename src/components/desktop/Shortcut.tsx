@@ -28,6 +28,7 @@ interface Props {
   windowSize?: WindowSize
   description?: string
   handleCurrentDescription?: (input: string) => void
+  draggable: boolean
 }
 
 const Shortcut = ({
@@ -42,6 +43,7 @@ const Shortcut = ({
   type,
   windowSize,
   description = "",
+  draggable,
   handleCurrentDescription,
 }: Props) => {
   const [top, setTop] = useState(initTop)
@@ -116,11 +118,11 @@ const Shortcut = ({
       <DraggableContainer
         top={top}
         left={left}
-        onTouchMove={e => onMobileDrag(e)}
-        onDragStart={e => onFolderDragStart(e)}
-        onDragCapture={e => onFolderDrag(e)}
-        onDragEnd={e => onFolderDragEnd(e)}
-        draggable={true}
+        onTouchMove={draggable ? e => onMobileDrag(e) : undefined}
+        onDragStart={draggable ? e => onFolderDragStart(e) : undefined}
+        onDragCapture={draggable ? e => onFolderDrag(e) : undefined}
+        onDragEnd={draggable ? e => onFolderDragEnd(e) : undefined}
+        draggable={draggable}
         tabIndex={0}
         onClick={handleSetDescription}
         onDoubleClick={() => handleWindowOpen()}

@@ -11,6 +11,7 @@ interface Props {
   src?: string
   windowSize?: WindowSize
   description?: string
+  draggable?: boolean
 }
 
 const Folder = ({
@@ -22,6 +23,7 @@ const Folder = ({
   src,
   windowSize,
   description,
+  draggable = false,
 }: Props) => {
   return (
     <Shortcut
@@ -33,6 +35,7 @@ const Folder = ({
       href={href}
       windowSize={windowSize}
       description={description}
+      draggable={draggable}
     >
       {children}
     </Shortcut>

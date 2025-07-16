@@ -17,13 +17,13 @@ const Desktop = () => {
   return (
     <>
       <DesktopContainer>
-        <Folder title="Resume">
+        <Folder title="Resume" draggable>
           <Resume />
         </Folder>
-        <Folder title="Software">
+        <Folder title="Software" draggable>
           <Software />
         </Folder>
-        <Folder title="Carpentry">
+        <Folder title="Carpentry" draggable>
           <Photos />
         </Folder>
         {/* <Folder title="React Component Demos">
@@ -54,6 +54,14 @@ const DesktopContainer = styled.div`
   gap: 10px;
   align-items: center;
   align-content: flex-end;
+`
+
+export const WindowContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  gap: 15px;
+  padding: 20px;
 `
 
 export default Desktop
