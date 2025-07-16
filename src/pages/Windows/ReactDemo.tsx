@@ -3,7 +3,7 @@ import Folder from "../../components/desktop/Folder"
 import react from "../../images/ReactLogo8Bit.png"
 import type { WindowProps } from "../Desktop/Desktop"
 
-const React = ({ windowtop, windowleft }: WindowProps) => {
+const ReactDemo = ({ windowtop, windowleft }: WindowProps) => {
   return (
     <WindowContainer>
       <Folder
@@ -67,4 +67,4 @@ export const WindowContainer = styled.div`
   padding: 20px;
 `
 
-export default React
+export default ReactDemo

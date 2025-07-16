@@ -1,11 +1,9 @@
 import styled from "styled-components"
-import { WindowSize } from "../../components/desktop/DesktopWindow"
 import Folder from "../../components/desktop/Folder"
 import useResizeWindow from "../../hooks/useResizeWindow"
-import Applications from "../Windows/Applications"
-import IFrame from "../Windows/IFrame/IFrame"
 import Photos from "../Windows/Photos"
 import Resume from "../Windows/Resume"
+import Software from "../Windows/Software"
 import "./Desktop.css"
 
 export interface WindowProps {
@@ -22,11 +20,8 @@ const Desktop = () => {
         <Folder title="Resume">
           <Resume />
         </Folder>
-        <Folder title="Applications">
-          <Applications />
-        </Folder>
-        <Folder title="Hangman" windowSize={WindowSize.LARGE}>
-          <IFrame />
+        <Folder title="Software">
+          <Software />
         </Folder>
         <Folder title="Carpentry">
           <Photos />

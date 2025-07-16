@@ -59,6 +59,9 @@ upload images!"
           windowtop={windowtop}
           windowleft={windowleft}
           handleCurrentDescription={handleSetDescription}
+          description={
+            "Backend for a theoretical autonomous store. Features blockchain ledger\nfor tracking customer spending. Card links to github with instructions\nfor building and testing the project."
+          }
         />
         <FileIcon
           title={"BFA CSV App"}
