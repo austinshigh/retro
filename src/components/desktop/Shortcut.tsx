@@ -27,7 +27,7 @@ interface Props {
   type: ShortCutTypes
   windowSize?: WindowSize
   description?: string
-  handleCurrentDescription: (input: string) => void
+  handleCurrentDescription?: (input: string) => void
 }
 
 const Shortcut = ({
@@ -108,7 +108,7 @@ const Shortcut = ({
 
   const handleSetDescription = () => {
     console.log("set")
-    handleCurrentDescription(description)
+    handleCurrentDescription && handleCurrentDescription(description)
   }
 
   return (

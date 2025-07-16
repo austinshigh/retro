@@ -1,5 +1,5 @@
-import { ReactNode } from "react"
-import { WindowSize } from "./DesktopWindow"
+import type { ReactNode } from "react"
+import type { WindowSize } from "./DesktopWindow"
 import Shortcut, { ShortCutTypes } from "./Shortcut"
 
 interface Props {

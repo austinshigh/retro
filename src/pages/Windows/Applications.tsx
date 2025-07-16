@@ -21,7 +21,9 @@ const Applications = ({ windowtop, windowleft }: WindowProps) => {
         <FileIcon
           title={"Partner Up Creator Dashboard"}
           src={react}
-          description={"austin"}
+          description={
+            "PartnerUp helps creators and brands manage partnerships through a clean, easy‑to‑use dashboard. I built the frontend in React and Next.js.\n The dashboard features dynamic data visualization, real time updates, and a clean, responsive UI optimized for both desktop and mobile.\nI focused on performance and developer‑friendly architecture, implementing reusable components and server-side rendering which ensures smooth page loads and SEO friendly routes."
+          }
           href={"https://www.partner-up.net/"}
           windowtop={windowtop}
           windowleft={windowleft}
@@ -84,11 +86,18 @@ const DescriptionContainer = styled.div`
 
   padding: 10px;
   border-left: 1px solid #333;
+  @media (max-width: 750) {
+    padding: 5px;
+    border-left: none;
+  }
 `
 
 const OuterFlexContainer = styled.div`
   display: flex;
   flex-direction: row;
+  @media (max-width: 750) {
+    flex-direction: column;
+  }
 `
 
 {

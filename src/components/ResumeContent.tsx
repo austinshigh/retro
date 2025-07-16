@@ -4,9 +4,7 @@ const ResumeContent = () => {
   return (
     <>
       <Section>
-        {/* <img src={portrait} /> */}
         <CompanyTitle>Scholastic</CompanyTitle>
-        {/* <CompanyLogo src={ScholasticLogo} /> */}
         <JobTitle>Software Engineer III</JobTitle>
         <JobDetails>New York, NY (remote) | Oct 2024 - Present</JobDetails>
         <p>

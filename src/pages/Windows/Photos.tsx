@@ -1,6 +1,6 @@
 import styled from "styled-components"
 import Photo from "../../components/desktop/Photo"
-import { WindowProps } from "../Desktop/Desktop"
+import type { WindowProps } from "../Desktop/Desktop"
 
 const Photos = ({ windowtop, windowleft }: WindowProps) => {
   return (
@@ -47,6 +47,7 @@ export const WindowContainer = styled.div`
   width: 100%;
   gap: 20px;
   padding: 20px;
+  justify-content: center;
 `
 
 export default Photos

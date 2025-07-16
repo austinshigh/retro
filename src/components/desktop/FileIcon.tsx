@@ -1,4 +1,4 @@
-import { ReactNode } from "react"
+import type { ReactNode } from "react"
 import Shortcut, { ShortCutTypes } from "./Shortcut"
 
 interface Props {

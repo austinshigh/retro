@@ -1,5 +1,3 @@
-import React from "react"
-
 import styled from "styled-components"
 import PhotoIcon from "../../images/FolderIcon.png"
 import Shortcut, { ShortCutTypes } from "./Shortcut"

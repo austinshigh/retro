@@ -1,7 +1,7 @@
 import styled from "styled-components"
 import Folder from "../../components/desktop/Folder"
 import react from "../../images/ReactLogo8Bit.png"
-import { WindowProps } from "../Desktop/Desktop"
+import type { WindowProps } from "../Desktop/Desktop"
 
 const React = ({ windowtop, windowleft }: WindowProps) => {
   return (
