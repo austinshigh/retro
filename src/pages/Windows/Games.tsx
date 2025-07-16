@@ -1,6 +1,7 @@
 import { WindowSize } from "../../components/desktop/DesktopWindow"
 import Folder from "../../components/desktop/Folder"
-import { WindowContainer, type WindowProps } from "../Desktop/Desktop"
+import { WindowContainer } from "../../components/WindowContainer"
+import { type WindowProps } from "../Desktop/Desktop"
 import IFrame from "./IFrame/IFrame"
 
 const Games = ({ windowtop, windowleft }: WindowProps) => {

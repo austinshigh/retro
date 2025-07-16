@@ -1,16 +1,19 @@
 import { useState } from "react"
 import styled from "styled-components"
 import FileIcon from "../../components/desktop/FileIcon"
+import { WindowContainer } from "../../components/WindowContainer"
 import java from "../../images/Java8Bit.png"
 import react from "../../images/ReactLogo8Bit.png"
 import solidity from "../../images/Solidity8Bit.png"
-import { WindowContainer, type WindowProps } from "../Desktop/Desktop"
+import { type WindowProps } from "../Desktop/Desktop"
 
 const Applications = ({ windowtop, windowleft }: WindowProps) => {
   const [activeDescription, setActiveDescription] = useState("")
+  const [descriptionOpen, setDescriptionOpen] = useState(false)
 
   const handleSetDescription = (input: string) => {
     console.log("input")
+    setDescriptionOpen(true)
     setActiveDescription(input)
   }
 
@@ -74,7 +77,11 @@ replace a manual process. Commissioned by the licensing team at BFA
 Fashion Photography."
         />
       </StyledWindowContainer>
-      <DescriptionContainer>{activeDescription}</DescriptionContainer>
+      {descriptionOpen && (
+        <DescriptionContainer onClick={() => setDescriptionOpen(false)}>
+          <p>{activeDescription}</p>
+        </DescriptionContainer>
+      )}
     </OuterFlexContainer>
   )
 }
@@ -88,6 +95,13 @@ const DescriptionContainer = styled.div`
 
   padding: 10px;
   border-left: 1px solid #333;
+
+  p {
+    font-family: "VT323", monospace;
+    position: sticky;
+    top: 35px;
+    font-size: 18px;
+  }
   @media (max-width: 750) {
     padding: 5px;
     border-left: none;
@@ -102,48 +116,4 @@ const OuterFlexContainer = styled.div`
   }
 `
 
-const StyledWindowContainer = styled(WindowContainer)`
-  justify-content: center;
-`
-
-{
-  /* <PortfolioCard
-title="Parametric Insurance Application"
-src={solidity}
-githubLink={"https://github.com/austinshigh/parametric-insurance"}
->
-Blockchain application written in Solidity. The application allows a
-user to create a smart contract that pays out to interested parties in
-the event of specific weather events.
-</PortfolioCard>
-<PortfolioCard
-title="Wildtrack Image Upload"
-src={react}
-appLink={"https://ai.wildtrack.org/"}
->
-WildTrack uses user uploaded animal footprints to train ML and AI
-models to track animals in the wild. I developed the frontend for
-their Image uploading and tagging platform. Create a free account to
-upload images!
-</PortfolioCard>
-<PortfolioCard
-title="Autonomous Store Service"
-src={java}
-githubLink={
-  "https://github.com/austinshigh/autonomous-store-service/"
-}
->
-Backend for a theoretical autonomous store. Features blockchain ledger
-for tracking customer spending. Card links to github with instructions
-for building and testing the project.
-</PortfolioCard>
-<PortfolioCard
-title="BFA CSV App"
-src={react}
-appLink={"https://bfa-csv.web.app/"}
->
-This application automates a simple string formatting process to
-replace a manual process. Commissioned by the licensing team at BFA
-Fashion Photography.
-</PortfolioCard> */
-}
+const StyledWindowContainer = styled(WindowContainer)``

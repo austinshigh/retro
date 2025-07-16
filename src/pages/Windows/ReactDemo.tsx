@@ -1,5 +1,5 @@
-import styled from "styled-components"
 import Folder from "../../components/desktop/Folder"
+import { WindowContainer } from "../../components/WindowContainer"
 import react from "../../images/ReactLogo8Bit.png"
 import type { WindowProps } from "../Desktop/Desktop"
 
@@ -58,14 +58,5 @@ const ReactDemo = ({ windowtop, windowleft }: WindowProps) => {
     </WindowContainer>
   )
 }
-
-export const WindowContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  width: 100%;
-  gap: 20px;
-  padding: 20px;
-`
 
 export default ReactDemo

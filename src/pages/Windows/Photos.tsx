@@ -1,5 +1,6 @@
 import Photo from "../../components/desktop/Photo"
-import { WindowContainer, type WindowProps } from "../Desktop/Desktop"
+import { WindowContainer } from "../../components/WindowContainer"
+import { type WindowProps } from "../Desktop/Desktop"
 
 const Photos = ({ windowtop, windowleft }: WindowProps) => {
   return (
