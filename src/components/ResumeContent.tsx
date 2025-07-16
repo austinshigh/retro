@@ -1,12 +1,10 @@
-import React from "react"
 import styled from "styled-components"
-import portrait from "../images/portrait.png"
 
 const ResumeContent = () => {
   return (
     <>
       <Section>
-        <img src={portrait} />
+        {/* <img src={portrait} /> */}
         <CompanyTitle>Scholastic</CompanyTitle>
         {/* <CompanyLogo src={ScholasticLogo} /> */}
         <JobTitle>Software Engineer III</JobTitle>

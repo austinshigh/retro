@@ -1,5 +1,4 @@
 import { ReactNode } from "react"
-import { WindowSize } from "./DesktopWindow"
 import Shortcut, { ShortCutTypes } from "./Shortcut"
 
 interface Props {
@@ -9,34 +8,32 @@ interface Props {
   windowleft?: number
   href?: string
   src?: string
-  windowSize?: WindowSize
   description?: string
+  handleCurrentDescription: (input: string) => void
 }
 
-const Folder = ({
+const FileIcon = ({
   title,
   children,
   windowtop,
   windowleft,
   href,
   src,
-  windowSize,
   description,
+  handleCurrentDescription,
 }: Props) => {
   return (
     <Shortcut
       src={src}
       title={title}
-      type={ShortCutTypes.FOLDER}
+      type={ShortCutTypes.FILE}
       windowtop={windowtop}
       windowleft={windowleft}
       href={href}
-      windowSize={windowSize}
       description={description}
-    >
-      {children}
-    </Shortcut>
+      handleCurrentDescription={handleCurrentDescription}
+    />
   )
 }
 
-export default Folder
+export default FileIcon

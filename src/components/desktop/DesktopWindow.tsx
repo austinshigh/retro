@@ -1,4 +1,5 @@
-import React, { ReactNode, Ref, useEffect, useState } from "react"
+import type { ReactNode } from "react"
+import React, { useEffect, useState } from "react"
 import styled from "styled-components"
 import { setDragImage } from "../../utils/DragUtility"
 
@@ -24,6 +25,8 @@ const DesktopWindow = ({
 
   const [windowtop, setWindowTop] = useState(0)
   const [windowLeft, setWindowLeft] = useState(0)
+
+  const [description, setDescription] = useState("")
 
   function onWindowDragStart(ev: React.DragEvent<HTMLElement>) {
     setDragImage(ev)
@@ -84,7 +87,7 @@ const DesktopWindow = ({
   return (
     <>
       {!(windowtop === 0 && windowLeft === 0) && (
-        <WindowContainer left={windowLeft} top={windowtop} size={windowSize}>
+        <WindowContainer $left={windowLeft} $top={windowtop} $size={windowSize}>
           <TopBar
             draggable={true}
             onTouchMove={e => onMobileDrag(e)}
@@ -108,22 +111,29 @@ const DesktopWindow = ({
 }
 
 interface WindowContainerProps {
-  top?: number
-  left?: number
-  size?: WindowSize
+  $top?: number
+  $left?: number
+  $size?: WindowSize
 }
+
+const DescriptionBar = styled.div`
+  width: 100%;
+  height: 100px;
+  border-top: 1px solid black;
+  background-color: white;
+`
 
 const WindowContainer = styled.div<WindowContainerProps>`
   position: fixed;
   width: 400px;
-  height: ${props => (props.size ? props.size : 50)}vh;
-  max-height: ${props => (props.size ? props.size : 75)}vh;
+  height: ${props => (props.$size ? props.$size : 50)}vh;
+  max-height: ${props => (props.$size ? props.$size : 75)}vh;
   max-width: 50vw;
   resize: both;
   overflow: auto;
   border: 1px solid black;
-  top: ${props => (props.top ? props.top : 0)}px;
-  left: ${props => (props.left ? props.left : 0)}px;
+  top: ${props => (props.$top ? props.$top : 0)}px;
+  left: ${props => (props.$left ? props.$left : 0)}px;
   background-color: #f8eded;
   z-index: 2000;
   /* width */
@@ -150,11 +160,11 @@ const WindowContainer = styled.div<WindowContainerProps>`
     /* background-color: #555; */
   }
   @media (max-width: 800px) {
-    top: ${props => (props.top ? props.top : 0)}px;
-    left: ${props => (props.left ? props.left : 0)}px;
+    top: ${props => (props.$top ? props.$top : 0)}px;
+    left: ${props => (props.$left ? props.$left : 0)}px;
     max-width: 100vw;
     overflow: scroll;
-    height: ${props => (props.size ? `${props.size}vh` : "100%")};
+    height: ${props => (props.$size ? `${props.$size}vh` : "100%")};
   }
 `
 
@@ -163,6 +173,7 @@ const TopBar = styled.div`
   top: 0px;
   width: 100%;
   height: 22px;
+  z-index: 100;
   /* border-bottom: 1px solid black; */
   display: flex;
   justify-content: center;

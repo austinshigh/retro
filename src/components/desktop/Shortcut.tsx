@@ -1,15 +1,18 @@
-import React, { ReactNode } from "react"
+import type React from "react"
+import type { ReactNode } from "react"
 
-import { useRef, useState } from "react"
+import { useState } from "react"
 import styled from "styled-components"
 import FolderIcon from "../../images/FolderIcon.png"
 import { setDragImage } from "../../utils/DragUtility"
-import DesktopWindow, { WindowSize } from "./DesktopWindow"
+import type { WindowSize } from "./DesktopWindow"
+import DesktopWindow from "./DesktopWindow"
 // import { useLongPress } from "use-long-press"
 
 export enum ShortCutTypes {
   FOLDER = "FOLDER",
   PHOTO = "PHOTO",
+  FILE = "FILE",
 }
 
 interface Props {
@@ -23,6 +26,8 @@ interface Props {
   windowleft?: number
   type: ShortCutTypes
   windowSize?: WindowSize
+  description?: string
+  handleCurrentDescription: (input: string) => void
 }
 
 const Shortcut = ({
@@ -36,17 +41,21 @@ const Shortcut = ({
   windowleft = 0,
   type,
   windowSize,
+  description = "",
+  handleCurrentDescription,
 }: Props) => {
   const [top, setTop] = useState(initTop)
   const [left, setLeft] = useState(initLeft)
   const [customTitle, setCustomTitle] = useState(title)
   const [windowOpen, setWindowOpen] = useState(false)
 
+  const [showDescription, setShowDescription] = useState(false)
+
   const [internalX, setInternalX] = useState(0)
   const [internalY, setInternalY] = useState(0)
 
   function handleWindowOpen() {
-    if (href && type === ShortCutTypes.FOLDER) {
+    if (href && type === ShortCutTypes.FILE) {
       window.open(href, "_blank", "noopener")
     } else setWindowOpen(true)
   }
@@ -97,6 +106,11 @@ const Shortcut = ({
     }
   }
 
+  const handleSetDescription = () => {
+    console.log("set")
+    handleCurrentDescription(description)
+  }
+
   return (
     <>
       <DraggableContainer
@@ -108,6 +122,7 @@ const Shortcut = ({
         onDragEnd={e => onFolderDragEnd(e)}
         draggable={true}
         tabIndex={0}
+        onClick={handleSetDescription}
         onDoubleClick={() => handleWindowOpen()}
       >
         <DraggableImage src={src} alt="" />
@@ -131,6 +146,10 @@ interface PositionProps {
   left?: number
 }
 
+const Description = styled.div`
+  display: none;
+`
+
 export const DraggableContainer = styled.div<PositionProps>`
   position: ${props => (props.top || props.left ? "absolute" : "relative")};
   top: ${props => (props.top ? props.top : 0)}px;
@@ -145,6 +164,9 @@ export const DraggableContainer = styled.div<PositionProps>`
     border: 1px solid black;
     background-color: white;
     filter: grayscale(100%) invert(1);
+    ${Description} {
+      display: block;
+    }
   }
   &:focus-visible {
     border: 1px solid black;

@@ -1,17 +1,13 @@
-import React from "react"
-import "./Desktop.css"
-import Resume from "../Windows/Resume"
 import styled from "styled-components"
+import { WindowSize } from "../../components/desktop/DesktopWindow"
 import Folder from "../../components/desktop/Folder"
+import useResizeWindow from "../../hooks/useResizeWindow"
 import Applications from "../Windows/Applications"
 import IFrame from "../Windows/IFrame/IFrame"
 import Photos from "../Windows/Photos"
-import { WindowSize } from "../../components/desktop/DesktopWindow"
-import { useAppSelector } from "../../app/hooks"
-import {
-  ColorNames,
-  selectColor,
-} from "../../components/backgroundColor/backgroundColor"
+import React from "../Windows/React"
+import Resume from "../Windows/Resume"
+import "./Desktop.css"
 
 export interface WindowProps {
   windowtop?: number
@@ -19,6 +15,8 @@ export interface WindowProps {
 }
 
 const Desktop = () => {
+  const { height, width } = useResizeWindow()
+
   return (
     <>
       <DesktopContainer>
@@ -34,11 +32,25 @@ const Desktop = () => {
         <Folder title="Carpentry">
           <Photos />
         </Folder>
+        <Folder title="React Component Demos">
+          <React />
+        </Folder>
         {/* <Folder title="Trash" src={Trashcan}></Folder> */}
+        <ScreenDimensions>
+          <p>
+            {height},{width}
+          </p>
+        </ScreenDimensions>
       </DesktopContainer>
     </>
   )
 }
+
+const ScreenDimensions = styled.div`
+  position: absolute;
+  right: 10px;
+  bottom: 0px;
+`
 
 const DesktopContainer = styled.div`
   display: flex;
